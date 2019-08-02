@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
-    [SerializeField] 
-    private GameObject bulletTowerPref;
-    [SerializeField] 
-    private GameObject rocketTowerPref;
-    [SerializeField] 
-    private GameObject canonTowerPref;
+    private TowerButton selectedTower;
 
-    public GameObject BulletTowerPref { get { return bulletTowerPref; } }
-    public GameObject RocketTowerPref { get { return rocketTowerPref; } }
-    public GameObject CanonTowerPref { get { return canonTowerPref; } }
+    public TowerButton SelectedTower
+    {
+        private set { selectedTower = value; }
+        get { return selectedTower; }
+    }
     
     private void Start()
     {
@@ -23,5 +20,10 @@ public class TowerManager : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    public void SelectTower(TowerButton selectedTower)
+    {
+        SelectedTower = selectedTower;
     }
 }

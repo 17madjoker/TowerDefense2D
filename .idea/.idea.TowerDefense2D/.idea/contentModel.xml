@@ -18,6 +18,7 @@
           <e p="MapManager.cs" t="Include" />
           <e p="Node.cs" t="Include" />
           <e p="Tile.cs" t="Include" />
+          <e p="TowerButton.cs" t="Include" />
           <e p="TowerManager.cs" t="Include" />
           <e p="Wave.cs" t="Include" />
         </e>

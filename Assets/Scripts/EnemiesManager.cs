@@ -15,9 +15,12 @@ public class EnemiesManager : MonoBehaviour
     private List<Wave> waves;
     private int waveIndex = 0;
     private Text timeToNextWave;
+
+    private Transform enemiesParent;
     
     private void Start()
     {
+        enemiesParent = GameObject.Find("Enemies").transform;
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
         
         waves = new List<Wave>();
@@ -70,7 +73,7 @@ public class EnemiesManager : MonoBehaviour
             for (int i = 0; i < enemy.Value; i++)
             {
                 GameObject tmp = Instantiate(enemy.Key);
-                tmp.transform.SetParent(transform);
+                tmp.transform.SetParent(enemiesParent);
             
                 yield return new WaitForSeconds(timeBetweenEnemy);
             }

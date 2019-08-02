@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
@@ -35,9 +36,11 @@ public class Tile : MonoBehaviour
 
     private void PlaceTower()
     {
-        TowerManager TM = GameObject.Find("Towers").GetComponent<TowerManager>();
-
-        GameObject tower = Instantiate(TM.RocketTowerPref, transform.position, Quaternion.identity);
+        TowerManager TowerManager = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         
+        if (!EventSystem.current.IsPointerOverGameObject() && TowerManager.SelectedTower != null)
+        {
+            Instantiate(TowerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
