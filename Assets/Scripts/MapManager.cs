@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[DefaultExecutionOrder(1)]
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] tilePrefabs;
@@ -26,7 +27,7 @@ public class MapManager : MonoBehaviour
 
     public Dictionary<Node, Tile> Tiles { get; private set; }  
     public Dictionary<Node, Tile> WayTiles { get; private set; }
-    public List<GameObject> WayPoints { get; private set; }
+    public List<Transform> WayPoints { get; private set; }
      
     private void Start()
     {
@@ -35,8 +36,8 @@ public class MapManager : MonoBehaviour
         PlaceCamera();
 
         CreateWayTilesList();
-        CheckWayTilesList();
-        Debug.Log(WayTiles.Count);
+//        CheckWayTilesList();
+//        Debug.Log(WayTiles.Count);
         CreateWaypoints();
     }
     
@@ -53,7 +54,7 @@ public class MapManager : MonoBehaviour
     {
         Tiles = new Dictionary<Node, Tile>();
         WayTiles = new Dictionary<Node, Tile>();
-        WayPoints = new List<GameObject>();
+        WayPoints = new List<Transform>();
         
         MapWidth = map[0].ToCharArray().Length;
         MapHeight = map.Length;
@@ -248,13 +249,13 @@ public class MapManager : MonoBehaviour
             if (tile.Key == StartWayTile.Node)
             {
                 wayPoint = CreateWaypoint(tile.Value);
-                WayPoints.Add(wayPoint);
+                WayPoints.Add(wayPoint.transform);
             }
             
             else if (tile.Key == FinalWayTile.Node)
             {
                 wayPoint = CreateWaypoint(WayTiles.ElementAt(nextIndex).Value);
-                WayPoints.Add(wayPoint);
+                WayPoints.Add(wayPoint.transform);
             }
             
             else
@@ -262,7 +263,7 @@ public class MapManager : MonoBehaviour
                 if (CheckOnCornerTile(previousNode, currentNode, nextNode))
                 {
                     wayPoint = CreateWaypoint(WayTiles.ElementAt(currentIndex).Value);
-                    WayPoints.Add(wayPoint);
+                    WayPoints.Add(wayPoint.transform);
                 }
 
                 if (nextIndex != wayTilesCount - 1)

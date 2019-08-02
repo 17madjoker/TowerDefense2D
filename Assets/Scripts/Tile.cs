@@ -24,4 +24,20 @@ public class Tile : MonoBehaviour
         IsWayTile = isWayTile;
         wayTile = isWayTile;
     }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlaceTower();
+        }
+    }
+
+    private void PlaceTower()
+    {
+        TowerManager TM = GameObject.Find("Towers").GetComponent<TowerManager>();
+
+        GameObject tower = Instantiate(TM.RocketTowerPref, transform.position, Quaternion.identity);
+        
+    }
 }

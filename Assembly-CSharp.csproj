@@ -59,11 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MainManager.cs" />
+    <Compile Include="Assets\Scripts\EnemiesManager.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyType.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
-    <None Include="Assets\Resources\Level_1 — копия (2).txt" />
+    <Compile Include="Assets\Scripts\TowerManager.cs" />
+    <Compile Include="Assets\Scripts\Wave.cs" />
+    <None Include="Assets\Resources\Level_1 — копия.txt" />
     <None Include="Assets\Resources\Level_1.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

@@ -7,14 +7,19 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Resources" t="Include">
-          <e p="Level_1 — копия (2).txt" t="Include" />
+          <e p="Level_1 — копия.txt" t="Include" />
           <e p="Level_1.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="MainManager.cs" t="Include" />
+          <e p="EnemiesManager.cs" t="Include" />
+          <e p="Enemy.cs" t="Include" />
+          <e p="EnemyType.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="MapManager.cs" t="Include" />
           <e p="Node.cs" t="Include" />
           <e p="Tile.cs" t="Include" />
+          <e p="TowerManager.cs" t="Include" />
+          <e p="Wave.cs" t="Include" />
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />
