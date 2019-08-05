@@ -116,7 +116,7 @@ public class MapManager : MonoBehaviour
         else
         {
             newTile = Instantiate(tilePrefabs[intTileIndex]).GetComponent<Tile>();
-            newTile.SetTile(currentTileNode, currentTilePosition);
+            newTile.SetTile(currentTileNode, currentTilePosition, false, true);
 
             return newTile;
         }

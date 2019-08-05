@@ -15,6 +15,7 @@ public class EnemiesManager : MonoBehaviour
     private List<Wave> waves;
     private int waveIndex = 0;
     private Text timeToNextWave;
+    private Text remainedWaves;
 
     private Transform enemiesParent;
     
@@ -22,6 +23,7 @@ public class EnemiesManager : MonoBehaviour
     {
         enemiesParent = GameObject.Find("Enemies").transform;
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
+        remainedWaves = GameObject.Find("RemainedWaves").GetComponent<Text>();
         
         waves = new List<Wave>();
         
@@ -31,7 +33,11 @@ public class EnemiesManager : MonoBehaviour
         
         waves.Add(new Wave(15f, 1f));
         waves[1].Enemies.Add(soldiesPref, 3);
-
+        
+        waves.Add(new Wave(20f, 1.5f));
+        waves[2].Enemies.Add(tankPref, 2);
+        
+        CheckRemainedWaves(waves);
     }
 
     private void Update()
@@ -54,7 +60,9 @@ public class EnemiesManager : MonoBehaviour
                 if (waves[waveIndex].TimeToStartWave <= 0f)
                 {
                     StartCoroutine(SpawnEnemy(waves[waveIndex].Enemies, waves[waveIndex].TimeBetweenEnemy));
+                    
                     waves[waveIndex].isWaveEnded = true;
+                    CheckRemainedWaves(waves);
 
                     if (waveIndex < waves.Count - 1)
                         waveIndex++;
@@ -80,9 +88,29 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
+    private void CheckRemainedWaves(List<Wave> waves)
+    {
+        List<Wave> wavesRemained = new List<Wave>();
+        
+        foreach (Wave wave in waves)
+        {
+            if (!wave.isWaveEnded)
+                wavesRemained.Add(wave);
+        }
+        
+        remainedWaves.text = "Remained waves:\n" + " <color=#FFA726>" + wavesRemained.Count + "</color>";
+    }
+
     public void NextWave()
     {
-        if (waveIndex > 0 && waves[waveIndex - 1].isWaveEnded)
+        GameObject allEnemies = GameObject.Find("Enemies");
+        
+        if (waveIndex > 0 && waves[waveIndex - 1].isWaveEnded && allEnemies.transform.childCount == 0)
             waves[waveIndex].TimeToStartWave = 0;
+    }
+
+    public int GetTimeToStartWave()
+    {
+        return (int) Mathf.Round(waves[waveIndex].TimeToStartWave);
     }
 }

@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     private List<Transform> wayPoints;
     private int wayPointIndex = 0;
     
-    private float speed = 1f;
+    private float speed = 3f;
     private float rotationSpeed = 10f;
 
     private EnemyType EnemyType;
@@ -62,5 +62,20 @@ public class Enemy : MonoBehaviour
         Vector2 direction = wayPoints[1].position - transform.position;
         float angel = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angel, Vector3.forward);
+
+        StartCoroutine(EnterExitEffect());
+    }
+
+    private IEnumerator EnterExitEffect()
+    {
+        float size = 0;
+
+        while (size <= 1)
+        {
+            transform.localScale = Vector3.Lerp(new Vector3(0.7f, 0.7f), new Vector3(1, 1), size);
+               
+            size += Time.deltaTime * 2;
+            yield return null;
+        }
     }
 }

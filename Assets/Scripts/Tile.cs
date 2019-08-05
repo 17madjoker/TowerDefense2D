@@ -13,8 +13,21 @@ public class Tile : MonoBehaviour
     public bool wayTile;
     
     public bool IsWayTile { get; set; }
+    public bool IsEmptyTile { get; private set; }
+    
+    private SpriteRenderer spriteRenderer;
+    private Color32 red = new Color32(239, 83, 80, 255);
+    private Color32 green = new Color32(102, 187, 106, 255);
 
-    public void SetTile(Node currentNode, Vector3 tilePosition, bool isWayTile = false)
+    private TowerManager towerManager; 
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        towerManager = GameObject.Find("TowerManager").GetComponent<TowerManager>();
+    }
+
+    public void SetTile(Node currentNode, Vector3 tilePosition, bool isWayTile = false, bool isEmptyTile = false)
     {            
         Node = currentNode;
         nodeX = currentNode.x;
@@ -22,25 +35,50 @@ public class Tile : MonoBehaviour
         transform.position = tilePosition;
         transform.SetParent(GameObject.Find("Tiles").transform);
 
+        IsEmptyTile = isEmptyTile;
         IsWayTile = isWayTile;
         wayTile = isWayTile;
     }
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            PlaceTower();
-        }
+        PlaceTower();
+    }
+
+    private void OnMouseExit()
+    {
+        spriteRenderer.color = Color.white;
     }
 
     private void PlaceTower()
     {
-        TowerManager TowerManager = GameObject.Find("TowerManager").GetComponent<TowerManager>();
-        
-        if (!EventSystem.current.IsPointerOverGameObject() && TowerManager.SelectedTower != null)
+        if (!EventSystem.current.IsPointerOverGameObject() && towerManager.SelectedTower != null)
         {
-            Instantiate(TowerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
+            ColorHoverTile();
+            
+            if (Input.GetMouseButtonDown(0) && IsEmptyTile)
+            {
+                if (towerManager.BuyTower(towerManager.SelectedTower))
+                {
+                    Transform towersParent = GameObject.Find("Towers").transform;
+                    GameObject tower = Instantiate(towerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
+                    tower.transform.SetParent(towersParent);
+                    
+                    IsEmptyTile = false;
+                    spriteRenderer.color = Color.white;
+            
+                    towerManager.DestroyFollowTower(); 
+                }
+            }
         }
+    }
+
+    private void ColorHoverTile()
+    {
+        if (IsEmptyTile && !wayTile)
+            spriteRenderer.color = green;
+        
+        else if (!IsEmptyTile && !wayTile)
+            spriteRenderer.color = red;
     }
 }
