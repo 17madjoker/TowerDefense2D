@@ -1,5 +1,13 @@
-﻿public struct EnemyType
+﻿using UnityEngine;
+
+public class EnemyType : MonoBehaviour
 {
-    public float Speed { get; private set; }
-    public float RotationSpeed { get; private set; }
+    [SerializeField] private float speed;
+    [SerializeField] private float rotationSpeed;
+      
+    public float Speed
+    {
+        get { return speed; }
+        private set { speed = value; }
+    }
 }

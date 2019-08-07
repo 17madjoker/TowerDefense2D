@@ -19,7 +19,8 @@ public class Tile : MonoBehaviour
     private Color32 red = new Color32(239, 83, 80, 255);
     private Color32 green = new Color32(102, 187, 106, 255);
 
-    private TowerManager towerManager; 
+    private TowerManager towerManager;
+    private Tower tower;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class Tile : MonoBehaviour
     private void OnMouseOver()
     {
         PlaceTower();
+        TowerInfo(tower);
     }
 
     private void OnMouseExit()
@@ -61,14 +63,32 @@ public class Tile : MonoBehaviour
                 if (towerManager.BuyTower(towerManager.SelectedTower))
                 {
                     Transform towersParent = GameObject.Find("Towers").transform;
-                    GameObject tower = Instantiate(towerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
-                    tower.transform.SetParent(towersParent);
-                    
+                    GameObject currentTower = Instantiate(towerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
+                    currentTower.transform.SetParent(towersParent);
+
                     IsEmptyTile = false;
+                    tower = currentTower.GetComponent<Tower>();
                     spriteRenderer.color = Color.white;
             
                     towerManager.DestroyFollowTower(); 
                 }
+            }
+        }
+    }
+
+    private void TowerInfo(Tower selectedTower)
+    {
+        if (!EventSystem.current.IsPointerOverGameObject() && towerManager.SelectedTower == null && Input.GetMouseButtonDown(0))
+        {
+            if (tower != null)
+            {
+                towerManager.ShowTowerInfo(selectedTower);
+                Debug.Log("if");
+            }
+            else
+            {
+                towerManager.HideTowerInfo();
+                Debug.Log("Else");
             }
         }
     }

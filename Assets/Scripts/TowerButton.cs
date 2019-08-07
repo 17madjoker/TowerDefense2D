@@ -7,7 +7,8 @@ public class TowerButton : MonoBehaviour
 {
     [SerializeField] private GameObject towerPrefab;
     [SerializeField] private Text priceText;
-    [SerializeField] private int towerPrice;
+    private int towerPrice;
+    private float towerRange;
     
     public GameObject TowerPrefab { get { return towerPrefab; } }
 
@@ -20,9 +21,18 @@ public class TowerButton : MonoBehaviour
             priceText.text = towerPrice + " <color=#FFA726>$</color>";
         }
     }
+    
+    public float TowerRange
+    {
+        get { return towerRange; }
+        private set { towerRange = value; }
+    }
 
     private void Start()
     {
         priceText.text = towerPrice + " <color=#FFA726>$</color>";
+        
+        TowerPrice = towerPrefab.GetComponent<Tower>().Price;
+        TowerRange = towerPrefab.GetComponent<Tower>().Range;
     }
 }

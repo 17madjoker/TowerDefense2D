@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class TowerManager : MonoBehaviour
 {
+    [SerializeField] private GameObject towerRange;
     private GameObject followTower;
     private TowerButton selectedTower;
+    private Tower tempTower;
+    private Text messageField;
 
     public TowerButton SelectedTower
     {
         private set { selectedTower = value; }
         get { return selectedTower; }
     }
-
-    private Text messageField;
     
     private void Start()
     {
@@ -59,6 +60,10 @@ public class TowerManager : MonoBehaviour
             SelectedTower.TowerPrefab.GetComponent<SpriteRenderer>().sprite;
         followTower.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
+        GameObject range = Instantiate(towerRange);
+        range.transform.localScale = new Vector3(SelectedTower.TowerRange, SelectedTower.TowerRange, 1);
+        range.transform.SetParent(followTower.transform);
+      
         messageField.text = "Press <color=#FFA726><ESC></color> cancel tower selection";
     }
 
@@ -91,6 +96,23 @@ public class TowerManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ShowTowerInfo(Tower selectedTower)
+    {
+        if (tempTower != null)
+            tempTower.Select();
+            
+        tempTower = selectedTower;
+        tempTower.Select();
+    }
+
+    public void HideTowerInfo()
+    {
+        if (tempTower != null)
+            tempTower.Select();
+
+        tempTower = null;
     }
 }
 

@@ -68,7 +68,7 @@ public class EnemiesManager : MonoBehaviour
                         waveIndex++;
                     
                     if (waveIndex == waves.Count - 1)
-                        timeToNextWave.text = "<color=#FFA726>Final wave</color>";
+                        timeToNextWave.text = "<color=#ef5350>Final wave</color>";
                 }
             }
         }

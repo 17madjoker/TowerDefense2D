@@ -11,8 +11,6 @@ public class Enemy : MonoBehaviour
     
     private float speed = 3f;
     private float rotationSpeed = 10f;
-
-    private EnemyType EnemyType;
     
     private void Start()
     {
@@ -51,6 +49,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 Destroy(gameObject);
+                GameObject.Find("GameManager").GetComponent<GameManager>().BaseHealth -= 1;
             }
         }
     }
