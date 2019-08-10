@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 15de7e81bf7a24b418ac1103bae6edc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,11 @@ MonoBehaviour:
   price: 55
   range: 4
   damage: 15
-  attackSpeed: 10
+  attackSpeed: 1.2
+  rotationSpeed: 7
   damageType: 1
+  projectilePref: {fileID: 6439923602281717046, guid: 06b66515f058cfa46b5fda4e42068fce,
+    type: 3}
 --- !u!58 &5756683926413982357
 CircleCollider2D:
   m_ObjectHideFlags: 0

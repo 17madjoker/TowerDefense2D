@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e9fc79b3a1dfab149a7e5aa42f7f7840, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -96,10 +96,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRange: {fileID: 142961956667420288}
   price: 44
-  range: 3.5
+  range: 4
   damage: 10
-  attackSpeed: 2
+  attackSpeed: 0.3
+  rotationSpeed: 10
   damageType: 0
+  projectilePref: {fileID: 8943674265541299192, guid: 1530a671aefa1244a8bc2aca9941c8a0,
+    type: 3}
 --- !u!58 &7740194437986494810
 CircleCollider2D:
   m_ObjectHideFlags: 0

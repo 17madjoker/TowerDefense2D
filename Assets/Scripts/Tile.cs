@@ -43,8 +43,8 @@ public class Tile : MonoBehaviour
 
     private void OnMouseOver()
     {
-        PlaceTower();
         TowerInfo(tower);
+        PlaceTower();
     }
 
     private void OnMouseExit()
@@ -83,12 +83,10 @@ public class Tile : MonoBehaviour
             if (tower != null)
             {
                 towerManager.ShowTowerInfo(selectedTower);
-                Debug.Log("if");
             }
             else
             {
                 towerManager.HideTowerInfo();
-                Debug.Log("Else");
             }
         }
     }

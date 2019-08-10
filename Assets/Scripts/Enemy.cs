@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     private List<Transform> wayPoints;
     private int wayPointIndex = 0;
     
-    private float speed = 3f;
+    private float speed = 1f;
     private float rotationSpeed = 10f;
     
     private void Start()
@@ -77,4 +77,15 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if (!GameObject.Find("Enemies").transform.GetChild(0))
+//            speed = 0;
+//    }
+//    
+//    private void OnTriggerExit2D(Collider2D other)
+//    {
+//        speed = other.gameObject.GetComponent<Enemy>().speed;
+//    }
 }

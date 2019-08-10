@@ -52,19 +52,22 @@ public class TowerManager : MonoBehaviour
 
     private void CreateFollowTower()
     {
-        followTower = new GameObject();
-        followTower.name = "MouseFollowTower";
+        if (followTower == null)
+        {
+            followTower = new GameObject();
+            followTower.name = "MouseFollowTower";
         
-        followTower.AddComponent<SpriteRenderer>();
-        followTower.GetComponent<SpriteRenderer>().sprite =
-            SelectedTower.TowerPrefab.GetComponent<SpriteRenderer>().sprite;
-        followTower.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            followTower.AddComponent<SpriteRenderer>();
+            followTower.GetComponent<SpriteRenderer>().sprite =
+                SelectedTower.TowerPrefab.GetComponent<SpriteRenderer>().sprite;
+            followTower.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-        GameObject range = Instantiate(towerRange);
-        range.transform.localScale = new Vector3(SelectedTower.TowerRange, SelectedTower.TowerRange, 1);
-        range.transform.SetParent(followTower.transform);
+            GameObject range = Instantiate(towerRange);
+            range.transform.localScale = new Vector3(SelectedTower.TowerRange, SelectedTower.TowerRange, 1);
+            range.transform.SetParent(followTower.transform);
       
-        messageField.text = "Press <color=#FFA726><ESC></color> cancel tower selection";
+            messageField.text = "Press <color=#FFA726><ESC></color> cancel tower selection";
+        }
     }
 
     public void DestroyFollowTower()
