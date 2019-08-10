@@ -94,13 +94,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ad010a2a98c9a48899e56c208d484b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerStats:
+    tower: {fileID: 3585753668148691788}
+    price: 44
+    range: 4
+    damage: 10
+    attackSpeed: 0.3
+    rotationSpeed: 10
   spriteRange: {fileID: 142961956667420288}
-  price: 44
-  range: 4
-  damage: 10
-  attackSpeed: 0.3
-  rotationSpeed: 10
-  damageType: 0
   projectilePref: {fileID: 8943674265541299192, guid: 1530a671aefa1244a8bc2aca9941c8a0,
     type: 3}
 --- !u!58 &7740194437986494810

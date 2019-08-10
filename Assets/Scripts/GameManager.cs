@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(2)]
 public class GameManager : MonoBehaviour
 {
-    private int money;
-    private int baseHealth;
+    
+    [SerializeField] private int money;
+    [SerializeField] private int baseHealth;
+    [SerializeField] private int incomePerSecond;
+    [SerializeField] private float timeToIncome;
     [SerializeField] private GameObject gameMenu;
     [SerializeField] private GameObject canvas;
 
@@ -39,22 +43,18 @@ public class GameManager : MonoBehaviour
 
     private Text baseHealthText;
     private Text moneyText;
-    private EnemiesManager EnemiesManager;
-    private int incomePerSecond;
-    private float timeToIncome = 2f;
+    private float timerIncome;
 
     private bool isGameOver = false;
     private bool isPaused = false;
-    
+
     private void Start()
     {
         baseHealthText = GameObject.Find("BaseHealth").GetComponent<Text>();
         moneyText = GameObject.Find("Money").GetComponent<Text>();
-        EnemiesManager = GameObject.Find("EnemiesManager").GetComponent<EnemiesManager>();
         
-        Money = 300;
-        BaseHealth = 9;
-        incomePerSecond = 2;
+        Money = money;
+        BaseHealth = baseHealth;
     }
 
     private void Update()
@@ -64,15 +64,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoneyIncome(int incomePerSecond)
     {
-        if (timeToIncome <= 0f)
+        if (timerIncome <= 0f)
         {
             Money += incomePerSecond;
-            timeToIncome = 2f;
+            timerIncome = timeToIncome;
             
             yield return new WaitForSeconds(0);
         }
 
-        timeToIncome -= Time.deltaTime;
+        timerIncome -= Time.deltaTime;
     }
 
     private void GameOver()

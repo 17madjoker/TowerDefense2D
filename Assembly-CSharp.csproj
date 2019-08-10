@@ -61,15 +61,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemiesManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\EnemyType.cs" />
+    <Compile Include="Assets\Scripts\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\ProjectileStats.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\Tower.cs" />
     <Compile Include="Assets\Scripts\TowerButton.cs" />
     <Compile Include="Assets\Scripts\TowerManager.cs" />
+    <Compile Include="Assets\Scripts\TowerStats.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <None Include="Assets\Resources\Level_1 — копия.txt" />
     <None Include="Assets\Resources\Level_1.txt" />

@@ -4,15 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemiesManager : MonoBehaviour
-{
-    [SerializeField]
-    private GameObject aircraftPref;    
-    [SerializeField]
-    private GameObject soldiesPref;    
-    [SerializeField]
-    private GameObject tankPref;
-
-    private List<Wave> waves;
+{    
+    [SerializeField] private Wave[] waves;
     private int waveIndex = 0;
     private Text timeToNextWave;
     private Text remainedWaves;
@@ -25,18 +18,6 @@ public class EnemiesManager : MonoBehaviour
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
         remainedWaves = GameObject.Find("RemainedWaves").GetComponent<Text>();
         
-        waves = new List<Wave>();
-        
-        waves.Add(new Wave(3f, 1.5f));
-        waves[0].Enemies.Add(aircraftPref, 3);
-        waves[0].Enemies.Add(tankPref, 2);
-        
-        waves.Add(new Wave(15f, 1f));
-        waves[1].Enemies.Add(soldiesPref, 3);
-        
-        waves.Add(new Wave(20f, 1.5f));
-        waves[2].Enemies.Add(tankPref, 2);
-        
         CheckRemainedWaves(waves);
     }
 
@@ -47,40 +28,46 @@ public class EnemiesManager : MonoBehaviour
 
     private void SpawnWave()
     {
-        if (waves.Count != 0)
+        if (waves.Length != 0)
         {
-            if (waves[waveIndex].isWaveEnded == false)
+            if (waves[waveIndex].IsWaveEnded == false)
             {
                 if (waves[waveIndex].TimeToStartWave > 0f)
                 {
-                    timeToNextWave.text = "Time to next wave: \n" + "<color=#FFA726>" + Mathf.Round(waves[waveIndex].TimeToStartWave) + "</color>";
-                    waves[waveIndex].TimeToStartWave -= Time.deltaTime;
+                    if (enemiesParent.childCount == 0)
+                    {
+                        timeToNextWave.text = "Time to next wave: \n" + "<color=#FFA726>" + Mathf.Round(waves[waveIndex].TimeToStartWave) + "</color>";
+                        waves[waveIndex].TimeToStartWave -= Time.deltaTime;
+                    }
+                    
+                    else
+                        timeToNextWave.text = "Defeat enemies";
                 }
 
-                if (waves[waveIndex].TimeToStartWave <= 0f)
+                if (waves[waveIndex].TimeToStartWave <= 0f && enemiesParent.childCount == 0)
                 {
-                    StartCoroutine(SpawnEnemy(waves[waveIndex].Enemies, waves[waveIndex].TimeBetweenEnemy));
+                    StartCoroutine(SpawnEnemy(waves[waveIndex], waves[waveIndex].TimeBetweenEnemy));
                     
-                    waves[waveIndex].isWaveEnded = true;
+                    waves[waveIndex].IsWaveEnded = true;
                     CheckRemainedWaves(waves);
 
-                    if (waveIndex < waves.Count - 1)
-                        waveIndex++;
-                    
-                    if (waveIndex == waves.Count - 1)
+                    if (waveIndex == waves.Length - 1)
                         timeToNextWave.text = "<color=#ef5350>Final wave</color>";
+                    
+                    if (waveIndex < waves.Length - 1)
+                        waveIndex++;
                 }
             }
         }
     }
 
-    private IEnumerator SpawnEnemy(Dictionary<GameObject, int> enemies, float timeBetweenEnemy)
+    private IEnumerator SpawnEnemy(Wave wave, float timeBetweenEnemy)
     {
-        foreach (KeyValuePair<GameObject, int> enemy in enemies)
+        for (int j = 0; j < wave.Enemies.Length; j++)
         {
-            for (int i = 0; i < enemy.Value; i++)
+            for (int i = 0; i < wave.Enemies[j].EnemyCount; i++)
             {
-                GameObject tmp = Instantiate(enemy.Key);
+                GameObject tmp = Instantiate(wave.Enemies[j].EnemyPrefab);
                 tmp.transform.SetParent(enemiesParent);
             
                 yield return new WaitForSeconds(timeBetweenEnemy);
@@ -88,24 +75,22 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
-    private void CheckRemainedWaves(List<Wave> waves)
+    private void CheckRemainedWaves(Wave[] waves)
     {
-        List<Wave> wavesRemained = new List<Wave>();
-        
-        foreach (Wave wave in waves)
+        int wavesRemained = waves.Length;
+//        }
+        for (int i = 0; i < waves.Length; i++)
         {
-            if (!wave.isWaveEnded)
-                wavesRemained.Add(wave);
+            if (waves[i].IsWaveEnded)
+                wavesRemained--;
         }
         
-        remainedWaves.text = "Remained waves:\n" + " <color=#FFA726>" + wavesRemained.Count + "</color>";
+        remainedWaves.text = "Remained waves:\n" + " <color=#FFA726>" + wavesRemained + "</color>";
     }
 
     public void NextWave()
     {
-        GameObject allEnemies = GameObject.Find("Enemies");
-        
-        if (waveIndex > 0 && waves[waveIndex - 1].isWaveEnded && allEnemies.transform.childCount == 0)
+        if (waveIndex > 0 && waves[waveIndex - 1].IsWaveEnded && enemiesParent.childCount == 0)
             waves[waveIndex].TimeToStartWave = 0;
     }
 

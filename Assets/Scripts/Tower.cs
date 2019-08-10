@@ -7,47 +7,20 @@ using UnityEngine.EventSystems;
 
 public class Tower : MonoBehaviour
 {
+    [SerializeField] private TowerStats towerStats;
     [SerializeField] private SpriteRenderer spriteRange;
-    [SerializeField] private int price;
-    [SerializeField] private float range;
-    [SerializeField] private int damage;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private typeOfDamage damageType;
     [SerializeField] private GameObject projectilePref;
     
     private GameObject enemyTarget;
     private Queue<GameObject> enemiesIntoRange = new Queue<GameObject>();
     private bool canAttack = true;
     private float timeToAttack = 0;
-    
-    public enum typeOfDamage
-    { Bullet, Canon, Rocket }
-
-    public float Range
-    {
-        get { return range; }
-        private set
-        {
-            range = value;
-            transform.GetChild(0).localScale = new Vector3(range, range, 1);
-            GetComponent<CircleCollider2D>().radius = range / 2;
-        }
-    }
-    
-    public int Price { get { return price; } }
-    
-    public int Damage { get { return damage; } }
-    
-    public float AttackSpeed { get { return attackSpeed; } }
-    
-    public float RotationSpeed { get { return rotationSpeed; } }
 
     public GameObject EnemyTarget { get { return enemyTarget; } }
 
-    private void Start()
+    private void Awake()
     {
-        Range = range;
+        towerStats.Init();
     }
 
     private void Update()
@@ -88,7 +61,7 @@ public class Tower : MonoBehaviour
             
             else if (!canAttack)
             {
-                if (timeToAttack >= attackSpeed)
+                if (timeToAttack >= towerStats.AttackSpeed)
                 {
                     canAttack = true;
                     timeToAttack = 0;
@@ -113,7 +86,7 @@ public class Tower : MonoBehaviour
         float angel = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
         Quaternion rotate = Quaternion.AngleAxis(angel, Vector3.forward);
         rotate *= Quaternion.Euler(0, 0, -90);
-        obj.transform.rotation = Quaternion.Slerp(obj.transform.rotation, rotate, RotationSpeed * Time.deltaTime);
+        obj.transform.rotation = Quaternion.Slerp(obj.transform.rotation, rotate, towerStats.RotationSpeed * Time.deltaTime);
         
         float angleDifference = Quaternion.Angle(obj.transform.rotation, rotate);
 
@@ -123,5 +96,15 @@ public class Tower : MonoBehaviour
     public void Select()
     {
         spriteRange.enabled = !spriteRange.enabled;
+    }
+
+    public int GetTowerPrice()
+    {
+        return towerStats.Price;
+    }
+
+    public float GetTowerRange()
+    {
+        return towerStats.Range;
     }
 }

@@ -31,8 +31,8 @@ public class TowerButton : MonoBehaviour
     private void Start()
     {
         priceText.text = towerPrice + " <color=#FFA726>$</color>";
-        
-        TowerPrice = towerPrefab.GetComponent<Tower>().Price;
-        TowerRange = towerPrefab.GetComponent<Tower>().Range;
+
+        TowerPrice = towerPrefab.GetComponent<Tower>().GetTowerPrice();
+        TowerRange = towerPrefab.GetComponent<Tower>().GetTowerRange();
     }
 }

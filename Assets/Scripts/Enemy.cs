@@ -8,10 +8,15 @@ public class Enemy : MonoBehaviour
 {
     private List<Transform> wayPoints;
     private int wayPointIndex = 0;
-    
-    private float speed = 1f;
-    private float rotationSpeed = 10f;
-    
+
+    [SerializeField]
+    private EnemyStats enemyStats;
+
+    private void Awake()
+    {
+        enemyStats.Init();
+    }
+
     private void Start()
     {
         wayPoints = GameObject.Find("MapManager").GetComponent<MapManager>().WayPoints;
@@ -34,11 +39,11 @@ public class Enemy : MonoBehaviour
         direction = wayPoints[wayPointIndex].position - transform.position;
         distanceToWaypoint = Vector2.Distance(transform.position, wayPoints[wayPointIndex].position);
      
-        transform.position = Vector2.MoveTowards(transform.position, wayPoints[wayPointIndex].position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, wayPoints[wayPointIndex].position, enemyStats.Speed * Time.deltaTime);
         
         angel = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rotate = Quaternion.AngleAxis(angel, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, enemyStats.RotationSpeed * Time.deltaTime);
         
         if (distanceToWaypoint <= 0.01f)
         {
