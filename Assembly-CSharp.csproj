@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AnimationsController\enemyDeathBehaviour.cs" />
+    <Compile Include="Assets\Scripts\AnimationsController\projectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\EnemiesManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyStats.cs" />

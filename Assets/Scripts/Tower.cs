@@ -107,4 +107,9 @@ public class Tower : MonoBehaviour
     {
         return towerStats.Range;
     }
+    
+    public float GetTowerDamage()
+    {
+        return towerStats.Damage;
+    }
 }

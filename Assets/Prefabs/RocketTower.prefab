@@ -98,7 +98,7 @@ MonoBehaviour:
     tower: {fileID: -4389054497950510721}
     price: 66
     range: 4.5
-    damage: 20
+    damage: 17
     attackSpeed: 1.5
     rotationSpeed: 7
   spriteRange: {fileID: 8342893761558904796}

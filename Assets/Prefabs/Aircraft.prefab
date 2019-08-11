@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 2029370225895092144}
   - component: {fileID: 7719115340583118385}
   - component: {fileID: 3890025264838229271}
+  - component: {fileID: -5966932262908796117}
   m_Layer: 0
   m_Name: Aircraft
   m_TagString: Enemy
@@ -422,6 +423,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats:
     healthBar: {fileID: 484524034}
-    maxHealth: 120
-    speed: 4
+    maxHealth: 80
+    speed: 1
     rotationSpeed: 10
+--- !u!95 &-5966932262908796117
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3464790342052298798}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3bec235adc7e26d43b7ceb358f972f56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

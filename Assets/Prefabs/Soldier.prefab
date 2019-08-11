@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -999649792880388191}
   - component: {fileID: 8116027818762005079}
   - component: {fileID: 6170053153587459622}
+  - component: {fileID: 9050528623431672166}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Enemy
@@ -144,9 +145,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats:
     healthBar: {fileID: 3486862243887165236}
-    maxHealth: 120
-    speed: 4
+    maxHealth: 60
+    speed: 1
     rotationSpeed: 10
+--- !u!95 &9050528623431672166
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351818118832360583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3bec235adc7e26d43b7ceb358f972f56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &500874572031978531
 GameObject:
   m_ObjectHideFlags: 0

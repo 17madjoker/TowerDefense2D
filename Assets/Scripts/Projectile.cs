@@ -5,7 +5,14 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private GameObject target;
-    [SerializeField] private float speed;
+    private Animator animator;
+    [SerializeField] private ProjectileStats projectileStats;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        projectileStats.Init();
+    }
 
     private void Update()
     {
@@ -14,7 +21,10 @@ public class Projectile : MonoBehaviour
 
     private void Move()
     {
-        if (target != null)
+        if (target.GetComponent<Enemy>().IsDead || target == null)
+            Destroy(gameObject);
+            
+        else if (target != null)
         {
             Vector3 direction = target.transform.position - transform.position;
         
@@ -23,7 +33,7 @@ public class Projectile : MonoBehaviour
             rotate *= Quaternion.Euler(0, 0, -90);
         
             transform.rotation = rotate;
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, projectileStats.Speed * Time.deltaTime);
         }
     }
 
@@ -35,11 +45,17 @@ public class Projectile : MonoBehaviour
         transform.SetParent(parentTower.transform);
     }
 
-    private void OnTriggerEnter2D(Collider2D target)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (target.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            if (target.gameObject == other.gameObject)
+            {
+                Enemy enemy = target.GetComponent<Enemy>();
+                enemy.TakeDamage(projectileStats.Damage);
+                
+                animator.SetTrigger("penetration");
+            }
         }
     }
 }

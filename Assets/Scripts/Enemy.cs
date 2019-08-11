@@ -8,9 +8,12 @@ public class Enemy : MonoBehaviour
 {
     private List<Transform> wayPoints;
     private int wayPointIndex = 0;
+    private Animator animator;
+    private bool isDead = false;
 
-    [SerializeField]
-    private EnemyStats enemyStats;
+    public bool IsDead { get { return isDead; } }
+
+    [SerializeField] private EnemyStats enemyStats;
 
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         wayPoints = GameObject.Find("MapManager").GetComponent<MapManager>().WayPoints;
 
         SetStartPosition();
@@ -26,7 +30,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (!isDead)
+        {
+            CheckHealth();
+            Move();
+        }
     }
 
     private void Move()
@@ -53,7 +61,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                EnemyDie("deathOnFinalTile");
                 GameObject.Find("GameManager").GetComponent<GameManager>().BaseHealth -= 1;
             }
         }
@@ -81,6 +89,23 @@ public class Enemy : MonoBehaviour
             size += Time.deltaTime * 2;
             yield return null;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        enemyStats.CurrentHealth -= damage;
+    }
+
+    private void CheckHealth()
+    {
+        if (enemyStats.CurrentHealth <= 0f && !isDead)
+            EnemyDie("deathOnLine");
+    }
+
+    private void EnemyDie(string trigger)
+    {
+        animator.SetTrigger(trigger);
+        isDead = true;
     }
 
 //    private void OnTriggerEnter2D(Collider2D other)

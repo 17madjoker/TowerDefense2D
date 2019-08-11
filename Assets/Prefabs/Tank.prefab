@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: -8323657529316591244}
   - component: {fileID: 5467378692285156147}
   - component: {fileID: 3890636392747422049}
+  - component: {fileID: -9170408203327735252}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Enemy
@@ -335,8 +336,27 @@ MonoBehaviour:
   enemyStats:
     healthBar: {fileID: 4183982420647649584}
     maxHealth: 120
-    speed: 4
+    speed: 1
     rotationSpeed: 10
+--- !u!95 &-9170408203327735252
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7548378117559927001}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3bec235adc7e26d43b7ceb358f972f56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8483530876073505101
 GameObject:
   m_ObjectHideFlags: 0
