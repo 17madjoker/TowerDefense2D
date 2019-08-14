@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e9fc79b3a1dfab149a7e5aa42f7f7840, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,16 +91,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 629047571527471584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65ad010a2a98c9a48899e56c208d484b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cf6a0739905140438d976f9b8e835a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats:
     tower: {fileID: 3585753668148691788}
     price: 44
-    range: 4
-    damage: 5
-    attackSpeed: 0.3
+    range: 4.5
+    damage: 2
+    attackSpeed: 0.1
     rotationSpeed: 10
+    damageType: 0
   spriteRange: {fileID: 142961956667420288}
   projectilePref: {fileID: 8943674265541299192, guid: 1530a671aefa1244a8bc2aca9941c8a0,
     type: 3}

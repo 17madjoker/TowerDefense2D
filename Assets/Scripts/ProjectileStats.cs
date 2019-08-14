@@ -7,15 +7,14 @@ using UnityEngine;
 public class ProjectileStats
 {
     [SerializeField] private Tower tower;
-    [SerializeField] private typeOfDamage damageType;
+    [SerializeField] private GameManager.typeOfDamage damageType;
     [SerializeField] private float speed;
     private float damage;
 
-    public typeOfDamage DamageType { get { return damageType; } }
+    public GameManager.typeOfDamage DamageType { get { return damageType; } }
     public float Damage { get { return damage; } }
     public float Speed { get { return speed; } }
-    
-    public enum typeOfDamage { Bullet, Canon, Rocket }
+    public Tower Tower { get { return tower; } }
 
     public void Init()
     {

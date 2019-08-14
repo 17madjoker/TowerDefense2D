@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject towerRange;
+    [SerializeField] private GameObject sellTowerButton;
     private GameObject followTower;
     private TowerButton selectedTower;
     private Tower tempTower;
     private Text messageField;
+    private Tile pickedTile;
 
     public TowerButton SelectedTower
     {
@@ -101,6 +104,20 @@ public class TowerManager : MonoBehaviour
         return false;
     }
 
+    public void SellTower()
+    {
+        if (tempTower != null)
+        {
+            GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+            tempTower.Tile.IsEmptyTile = true;
+            gameManager.Money += tempTower.GetTowerPrice() / 2;
+            
+            Destroy(tempTower.gameObject);
+            HideTowerInfo();
+        }
+    }
+
     public void ShowTowerInfo(Tower selectedTower)
     {
         if (tempTower != null)
@@ -108,13 +125,17 @@ public class TowerManager : MonoBehaviour
             
         tempTower = selectedTower;
         tempTower.Select();
+        
+        sellTowerButton.SetActive(true);
+        sellTowerButton.transform.GetChild(0).GetComponent<Text>().text = "Sell if for " + "<color=white>" + selectedTower.GetTowerPrice() / 2 + " $</color>";
     }
 
     public void HideTowerInfo()
     {
         if (tempTower != null)
             tempTower.Select();
-
+        
+        sellTowerButton.SetActive(false);
         tempTower = null;
     }
 }

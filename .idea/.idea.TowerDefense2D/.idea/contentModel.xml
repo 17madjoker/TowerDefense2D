@@ -15,20 +15,31 @@
             <e p="enemyDeathBehaviour.cs" t="Include" />
             <e p="projectileBehaviour.cs" t="Include" />
           </e>
+          <e p="Bar.cs" t="Include" />
+          <e p="Debuffs" t="Include">
+            <e p="BulletDebuff.cs" t="Include" />
+            <e p="CanonDebuff.cs" t="Include" />
+            <e p="Debuff.cs" t="Include" />
+            <e p="RocketDebuff.cs" t="Include" />
+          </e>
           <e p="EnemiesManager.cs" t="Include" />
           <e p="Enemy.cs" t="Include" />
           <e p="EnemyStats.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
-          <e p="HealthBar.cs" t="Include" />
           <e p="MapManager.cs" t="Include" />
           <e p="Node.cs" t="Include" />
           <e p="Projectile.cs" t="Include" />
           <e p="ProjectileStats.cs" t="Include" />
           <e p="Tile.cs" t="Include" />
-          <e p="Tower.cs" t="Include" />
-          <e p="TowerButton.cs" t="Include" />
           <e p="TowerManager.cs" t="Include" />
-          <e p="TowerStats.cs" t="Include" />
+          <e p="Towers" t="Include">
+            <e p="BulletTower.cs" t="Include" />
+            <e p="CanonTower.cs" t="Include" />
+            <e p="RocketTower.cs" t="Include" />
+            <e p="Tower.cs" t="Include" />
+            <e p="TowerButton.cs" t="Include" />
+            <e p="TowerStats.cs" t="Include" />
+          </e>
           <e p="Wave.cs" t="Include" />
         </e>
       </e>

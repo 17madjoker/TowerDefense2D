@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] private TowerStats towerStats;
+    [SerializeField] protected TowerStats towerStats;
     [SerializeField] private SpriteRenderer spriteRange;
     [SerializeField] private GameObject projectilePref;
     
@@ -17,6 +17,7 @@ public class Tower : MonoBehaviour
     private float timeToAttack = 0;
 
     public GameObject EnemyTarget { get { return enemyTarget; } }
+    public Tile Tile { get; set; }
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class Tower : MonoBehaviour
 
     private void Attack()
     {
-        if (enemyTarget == null && enemiesIntoRange.Count > 0 && transform.childCount == 1)
+        if (enemyTarget == null && enemiesIntoRange.Count > 0)
             enemyTarget = enemiesIntoRange.Dequeue();
         
         if (enemyTarget != null)
@@ -93,23 +94,17 @@ public class Tower : MonoBehaviour
         return angleDifference;
     }
 
-    public void Select()
-    {
-        spriteRange.enabled = !spriteRange.enabled;
-    }
+    public void Select() { spriteRange.enabled = !spriteRange.enabled; }
 
-    public int GetTowerPrice()
-    {
-        return towerStats.Price;
-    }
+    public int GetTowerPrice() { return towerStats.Price; }
 
-    public float GetTowerRange()
-    {
-        return towerStats.Range;
-    }
+    public float GetTowerRange() { return towerStats.Range; }
     
-    public float GetTowerDamage()
-    {
-        return towerStats.Damage;
-    }
+    public float GetTowerDamage() { return towerStats.Damage; }
+
+    public GameManager.typeOfDamage GetTowerDamageType() { return towerStats.DamageType; }
+
+    public abstract Debuff CreateDebuff(Enemy target);
+
+    public abstract int GetChance();
 }

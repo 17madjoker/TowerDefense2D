@@ -9,6 +9,7 @@ public class EnemiesManager : MonoBehaviour
     private int waveIndex = 0;
     private Text timeToNextWave;
     private Text remainedWaves;
+    private GameObject towersPanel;
 
     private Transform enemiesParent;
     
@@ -17,6 +18,7 @@ public class EnemiesManager : MonoBehaviour
         enemiesParent = GameObject.Find("Enemies").transform;
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
         remainedWaves = GameObject.Find("RemainedWaves").GetComponent<Text>();
+        towersPanel = GameObject.Find("TowersPanel");
         
         CheckRemainedWaves(waves);
     }
@@ -38,6 +40,7 @@ public class EnemiesManager : MonoBehaviour
                     {
                         timeToNextWave.text = "Time to next wave: \n" + "<color=#FFA726>" + Mathf.Round(waves[waveIndex].TimeToStartWave) + "</color>";
                         waves[waveIndex].TimeToStartWave -= Time.deltaTime;
+                        towersPanel.SetActive(true);
                     }
                     
                     else
@@ -47,6 +50,7 @@ public class EnemiesManager : MonoBehaviour
                 if (waves[waveIndex].TimeToStartWave <= 0f && enemiesParent.childCount == 0)
                 {
                     StartCoroutine(SpawnEnemy(waves[waveIndex], waves[waveIndex].TimeBetweenEnemy));
+                    towersPanel.SetActive(false);
                     
                     waves[waveIndex].IsWaveEnded = true;
                     CheckRemainedWaves(waves);
@@ -90,7 +94,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (waveIndex > 0 && waves[waveIndex - 1].IsWaveEnded && enemiesParent.childCount == 0)
+        if (waveIndex > 0 && waves[waveIndex - 1].IsWaveEnded && enemiesParent.childCount == 0 || waveIndex == 0)
             waves[waveIndex].TimeToStartWave = 0;
     }
 

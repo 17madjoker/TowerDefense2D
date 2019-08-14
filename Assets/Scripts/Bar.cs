@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class Bar : MonoBehaviour
 {
     [SerializeField] private float progressSpeed;
-    private float currentHealth;
+    private float currentValue;
     private float fillAmount;
 
-    public float CurrentHealth
+    public float CurrentValue
     {
-        get { return currentHealth; }
+        get { return currentValue; }
         set
         {
-            currentHealth = value;
-            fillAmount = CurrentHealth / MaxHealth;
+            currentValue = value;
+            fillAmount = currentValue / MaxValue;
         }
     }
-    public float MaxHealth { get; set; }
+    public float MaxValue { get; set; }
 
     private void Update()
     {

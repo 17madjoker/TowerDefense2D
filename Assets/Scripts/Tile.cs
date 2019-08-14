@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     public bool wayTile;
     
     public bool IsWayTile { get; set; }
-    public bool IsEmptyTile { get; private set; }
+    public bool IsEmptyTile { get; set; }
     
     private SpriteRenderer spriteRenderer;
     private Color32 red = new Color32(239, 83, 80, 255);
@@ -65,6 +65,7 @@ public class Tile : MonoBehaviour
                     Transform towersParent = GameObject.Find("Towers").transform;
                     GameObject currentTower = Instantiate(towerManager.SelectedTower.TowerPrefab, transform.position, Quaternion.identity);
                     currentTower.transform.SetParent(towersParent);
+                    currentTower.GetComponent<Tower>().Tile = this;
 
                     IsEmptyTile = false;
                     tower = currentTower.GetComponent<Tower>();

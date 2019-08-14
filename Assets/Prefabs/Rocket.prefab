@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: d89b4b9a073fd984986296f393a6c94b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,8 +123,8 @@ MonoBehaviour:
   projectileStats:
     tower: {fileID: -4389054497950510721, guid: e0c1c72b71de8654381d8c932e0da2ea,
       type: 3}
-    damageType: 0
-    speed: 5
+    damageType: 2
+    speed: 8
 --- !u!95 &-6783319683613896894
 Animator:
   serializedVersion: 3

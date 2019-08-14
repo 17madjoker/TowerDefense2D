@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToIncome;
     [SerializeField] private GameObject gameMenu;
     [SerializeField] private GameObject canvas;
+    
+    public enum typeOfDamage { Bullet, Canon, Rocket }
 
     public int Money
     {

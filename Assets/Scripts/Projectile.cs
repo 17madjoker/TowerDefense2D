@@ -22,7 +22,10 @@ public class Projectile : MonoBehaviour
     private void Move()
     {
         if (target.GetComponent<Enemy>().IsDead || target == null)
+        {
             Destroy(gameObject);
+            target = null;
+        }
             
         else if (target != null)
         {
@@ -45,6 +48,15 @@ public class Projectile : MonoBehaviour
         transform.SetParent(parentTower.transform);
     }
 
+    private void AddDebuff(Enemy enemy)
+    {
+        if (projectileStats.Tower.GetChance() >= Random.Range(1, 101))
+        {
+            Debuff debuff = projectileStats.Tower.CreateDebuff(enemy);
+            enemy.AddDebuff(debuff);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -52,7 +64,10 @@ public class Projectile : MonoBehaviour
             if (target.gameObject == other.gameObject)
             {
                 Enemy enemy = target.GetComponent<Enemy>();
-                enemy.TakeDamage(projectileStats.Damage);
+                float damage = projectileStats.Damage;
+                
+                enemy.TakeDamage(damage, projectileStats.DamageType);
+                AddDebuff(enemy);
                 
                 animator.SetTrigger("penetration");
             }

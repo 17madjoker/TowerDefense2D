@@ -14,6 +14,7 @@ public class TowerStats
     [SerializeField] private int damage;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private GameManager.typeOfDamage damageType;
     
     public float Range
     {
@@ -33,6 +34,7 @@ public class TowerStats
     public float AttackSpeed { get { return attackSpeed; } }
     
     public float RotationSpeed { get { return rotationSpeed; } }
+    public GameManager.typeOfDamage DamageType { get { return damageType; } } 
 
     public void Init()
     {

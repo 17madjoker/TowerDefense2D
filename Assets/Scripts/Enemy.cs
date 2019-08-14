@@ -7,7 +7,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private List<Transform> wayPoints;
+    private List<Debuff> debuffs;
+    private List<Debuff> newDebuffs;
+    private List<Debuff> removeDebuffs;
     private int wayPointIndex = 0;
+    private float recoveryShieldTimer = 0;
     private Animator animator;
     private bool isDead = false;
 
@@ -24,6 +28,10 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         wayPoints = GameObject.Find("MapManager").GetComponent<MapManager>().WayPoints;
+        
+        newDebuffs = new List<Debuff>();
+        debuffs = new List<Debuff>();
+        removeDebuffs = new List<Debuff>();
 
         SetStartPosition();
     }
@@ -33,7 +41,10 @@ public class Enemy : MonoBehaviour
         if (!isDead)
         {
             CheckHealth();
+            RecoveryShield();
             Move();
+            HandleDebuffs();
+            Debug.Log(debuffs.Count);
         }
     }
 
@@ -91,7 +102,51 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, GameManager.typeOfDamage projectileDamageType)
+    {
+        if (enemyStats.DamageResistance == projectileDamageType)
+            damage *= 0.8f;
+        
+        CalculateDamage(damage);
+    }
+
+    private void CalculateDamage(float damage)
+    {
+        if (enemyStats.CurrentShield > 0)
+        {
+            damage *= 0.8f;
+
+            if (damage <= enemyStats.CurrentShield)
+                enemyStats.CurrentShield -= damage;
+
+            else if (damage > enemyStats.CurrentShield)
+            {
+                float restDamage = damage - enemyStats.CurrentShield;
+                enemyStats.CurrentShield = 0;
+                enemyStats.CurrentHealth -= restDamage;
+            }
+        }
+
+        else
+            enemyStats.CurrentHealth -= damage;
+
+        recoveryShieldTimer = 0;
+    }
+    
+    private void RecoveryShield()
+    {
+        if (enemyStats.CurrentShield != enemyStats.MaxShield)
+        {
+            if (recoveryShieldTimer >= enemyStats.TimeToShieldRecovery)
+            {
+                enemyStats.CurrentShield = Mathf.Lerp(enemyStats.CurrentShield, enemyStats.MaxShield, enemyStats.ShieldRecoverySpeed * Time.deltaTime);
+            }
+
+            recoveryShieldTimer += Time.deltaTime;
+        }
+    }
+
+    public void DamageHealth(float damage)
     {
         enemyStats.CurrentHealth -= damage;
     }
@@ -108,14 +163,50 @@ public class Enemy : MonoBehaviour
         isDead = true;
     }
 
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        if (!GameObject.Find("Enemies").transform.GetChild(0))
-//            speed = 0;
-//    }
-//    
-//    private void OnTriggerExit2D(Collider2D other)
-//    {
-//        speed = other.gameObject.GetComponent<Enemy>().speed;
-//    }
+    public void AddDebuff(Debuff newDebuff)
+    {
+        if (debuffs.Count == 0)
+            newDebuffs.Add(newDebuff);
+
+        else
+        {
+            foreach (Debuff debuff in debuffs)
+            {
+            if (debuff.Type == newDebuff.Type)
+                debuff.DurationTimer = 0f;
+
+            else
+                newDebuffs.Add(newDebuff);
+            
+//                if (debuff.Type != newDebuff.Type)
+//                    newDebuffs.Add(newDebuff);
+            }
+        }
+    }
+
+    public void RemoveDebuff(Debuff debuff)
+    {
+        removeDebuffs.Add(debuff);
+    }
+
+    public void HandleDebuffs()
+    {
+        if (newDebuffs.Count > 0)
+        {
+            debuffs.AddRange(newDebuffs);
+            newDebuffs.Clear();
+        }
+
+        foreach (Debuff debuff in removeDebuffs)
+        {
+            debuffs.Remove(debuff);
+        }
+        
+        removeDebuffs.Clear();
+        
+        foreach (Debuff debuff in debuffs)
+        {
+            debuff.ApplyDebuff();
+        }
+    }
 }
