@@ -8,6 +8,8 @@ public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject towerRange;
     [SerializeField] private GameObject sellTowerButton;
+    [SerializeField] private GameObject towerInfo;
+    [SerializeField] private Text towerInfoText;
     private GameObject followTower;
     private TowerButton selectedTower;
     private Tower tempTower;
@@ -121,22 +123,40 @@ public class TowerManager : MonoBehaviour
     public void ShowTowerInfo(Tower selectedTower)
     {
         if (tempTower != null)
+        {
+            TowerInfo(selectedTower);
             tempTower.Select();
+        }
+
             
         tempTower = selectedTower;
         tempTower.Select();
         
         sellTowerButton.SetActive(true);
+        TowerInfo(selectedTower);
         sellTowerButton.transform.GetChild(0).GetComponent<Text>().text = "Sell if for " + "<color=white>" + selectedTower.GetTowerPrice() / 2 + " $</color>";
     }
 
     public void HideTowerInfo()
     {
         if (tempTower != null)
+        {
+            towerInfo.active = !towerInfo.active;
             tempTower.Select();
+        }
+
         
         sellTowerButton.SetActive(false);
         tempTower = null;
+    }
+
+    public void TowerInfo(Tower tower)
+    {
+        towerInfo.active = !towerInfo.active;
+
+        string info = tower.GetTowerInfo();
+
+        towerInfoText.text = info;
     }
 }
 

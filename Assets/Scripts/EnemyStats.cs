@@ -9,19 +9,31 @@ public class EnemyStats
     
     private float currentHealth;
     private float currentShield;
+    private int enemyId;
     [SerializeField] private float maxHealth;
     [SerializeField] private float maxShield;
     [SerializeField] private float timeToShieldRecovery;
     [SerializeField] private float shieldRecoverySpeed;
     [SerializeField] private float speed;
+    [SerializeField] private float maxSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private GameManager.typeOfDamage damageResistance;
+
+    public int EnemyId { get { return enemyId; } set { enemyId = value; } }
+
+    public float Speed { get { return speed; } set { speed = value; } }
     
-    public float Speed { get { return speed; } }
+    public float MaxSpeed { get { return maxSpeed; }}
+
     public float RotationSpeed { get { return rotationSpeed; } }
+    
     public GameManager.typeOfDamage DamageResistance { get { return damageResistance; } }
 
-    public float TimeToShieldRecovery { get { return timeToShieldRecovery; } }
+    public float TimeToShieldRecovery
+    {
+        get { return timeToShieldRecovery; }
+        set { timeToShieldRecovery = value; }
+    }
 
     public float ShieldRecoverySpeed { get { return shieldRecoverySpeed; } }
 
@@ -72,5 +84,7 @@ public class EnemyStats
 
         MaxShield = maxShield;
         CurrentShield = MaxShield;
+
+        Speed = maxSpeed;
     }
 }

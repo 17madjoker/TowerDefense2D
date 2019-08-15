@@ -97,14 +97,17 @@ MonoBehaviour:
   towerStats:
     tower: {fileID: -3982335142921552846}
     price: 55
-    range: 7
-    damage: 14
-    attackSpeed: 1.2
-    rotationSpeed: 7
+    range: 5.5
+    damage: 10
+    attackSpeed: 2.3
+    rotationSpeed: 10
     damageType: 1
   spriteRange: {fileID: 545045859870520650}
   projectilePref: {fileID: 6439923602281717046, guid: 06b66515f058cfa46b5fda4e42068fce,
     type: 3}
+  canonDebuff:
+    duration: 1
+    procChance: 25
 --- !u!58 &5756683926413982357
 CircleCollider2D:
   m_ObjectHideFlags: 0

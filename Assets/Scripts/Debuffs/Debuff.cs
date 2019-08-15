@@ -35,7 +35,6 @@ public abstract class Debuff
     {
         if (durationTimer >= duration)
         {
-            Debug.Log("1111");
             RemoveDebuff();
             durationTimer = 0;
         }

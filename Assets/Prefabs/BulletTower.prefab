@@ -105,6 +105,10 @@ MonoBehaviour:
   spriteRange: {fileID: 142961956667420288}
   projectilePref: {fileID: 8943674265541299192, guid: 1530a671aefa1244a8bc2aca9941c8a0,
     type: 3}
+  bulletDebuff:
+    duration: 5
+    procChance: 30
+    multiplierShieldRecovery: 2
 --- !u!58 &7740194437986494810
 CircleCollider2D:
   m_ObjectHideFlags: 0

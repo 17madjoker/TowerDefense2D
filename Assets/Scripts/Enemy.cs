@@ -14,6 +14,13 @@ public class Enemy : MonoBehaviour
     private float recoveryShieldTimer = 0;
     private Animator animator;
     private bool isDead = false;
+    private bool isStop = false;
+    private bool isStun = false;
+    private float timeToStart = 0;
+
+    public bool IsStop { get { return isStop; } set { isStop = value; } }
+
+    public bool IsStun { get { return isStun; } set { isStun = value; } }
 
     public bool IsDead { get { return isDead; } }
 
@@ -42,7 +49,10 @@ public class Enemy : MonoBehaviour
         {
             CheckHealth();
             RecoveryShield();
-            Move();
+            
+            if (!IsStop)
+                Move();
+            
             HandleDebuffs();
             Debug.Log(debuffs.Count);
         }
@@ -76,6 +86,40 @@ public class Enemy : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().BaseHealth -= 1;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Enemy neighbor = other.GetComponent<Enemy>();
+
+            if (enemyStats.EnemyId < neighbor.GetEnemyId())
+                neighbor.IsStop = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Enemy neighbor = other.GetComponent<Enemy>();
+
+            if (enemyStats.EnemyId < neighbor.GetEnemyId())
+                neighbor.IsStop = true;
+        }
+        
+        else if (!IsStun && IsStop && !other.CompareTag("Enemy"))
+        {
+            timeToStart += Time.deltaTime;
+        
+            if (timeToStart >= 1f)
+            {
+                IsStop = false;
+                timeToStart = 0;
+            }
+        }
+
     }
 
     private void SetStartPosition()
@@ -151,6 +195,14 @@ public class Enemy : MonoBehaviour
         enemyStats.CurrentHealth -= damage;
     }
 
+    public void SetTimeToShieldRecovery(float value) { enemyStats.TimeToShieldRecovery = value; }
+    
+    public float GetTimeToShieldRecovery() { return enemyStats.TimeToShieldRecovery; }
+
+    public void SetEnemyId(int id) { enemyStats.EnemyId = id; }
+
+    public int GetEnemyId() { return enemyStats.EnemyId; } 
+    
     private void CheckHealth()
     {
         if (enemyStats.CurrentHealth <= 0f && !isDead)
@@ -165,23 +217,11 @@ public class Enemy : MonoBehaviour
 
     public void AddDebuff(Debuff newDebuff)
     {
-        if (debuffs.Count == 0)
+        if (!debuffs.Exists(x => x.Type == newDebuff.Type))
             newDebuffs.Add(newDebuff);
-
-        else
-        {
-            foreach (Debuff debuff in debuffs)
-            {
-            if (debuff.Type == newDebuff.Type)
-                debuff.DurationTimer = 0f;
-
-            else
-                newDebuffs.Add(newDebuff);
-            
-//                if (debuff.Type != newDebuff.Type)
-//                    newDebuffs.Add(newDebuff);
-            }
-        }
+        
+        else if (debuffs.Exists(x => x.Type == newDebuff.Type))
+            debuffs.Find(x => x.Type == newDebuff.Type).DurationTimer = 0;
     }
 
     public void RemoveDebuff(Debuff debuff)

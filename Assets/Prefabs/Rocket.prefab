@@ -124,7 +124,7 @@ MonoBehaviour:
     tower: {fileID: -4389054497950510721, guid: e0c1c72b71de8654381d8c932e0da2ea,
       type: 3}
     damageType: 2
-    speed: 8
+    speed: 10
 --- !u!95 &-6783319683613896894
 Animator:
   serializedVersion: 3

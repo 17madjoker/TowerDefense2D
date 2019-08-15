@@ -107,4 +107,6 @@ public abstract class Tower : MonoBehaviour
     public abstract Debuff CreateDebuff(Enemy target);
 
     public abstract int GetChance();
+
+    public abstract string GetTowerInfo();
 }

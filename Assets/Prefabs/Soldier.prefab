@@ -108,7 +108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.4}
+  m_Size: {x: 0.8, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &8116027818762005079
 Rigidbody2D:
@@ -151,6 +151,7 @@ MonoBehaviour:
     timeToShieldRecovery: 1.5
     shieldRecoverySpeed: 0.7
     speed: 1
+    maxSpeed: 1
     rotationSpeed: 10
     damageResistance: 1
 --- !u!95 &9050528623431672166

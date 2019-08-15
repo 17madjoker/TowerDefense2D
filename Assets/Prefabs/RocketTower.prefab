@@ -100,14 +100,14 @@ MonoBehaviour:
     range: 4.5
     damage: 17
     attackSpeed: 1.5
-    rotationSpeed: 7
+    rotationSpeed: 10
     damageType: 2
   spriteRange: {fileID: 8342893761558904796}
   projectilePref: {fileID: 8848042196274915627, guid: a22fb9e71b0c79043a54e7ae2aac6113,
     type: 3}
   rocketDebuff:
     duration: 3
-    procChance: 70
+    procChance: 35
     damagePerSecond: 3
 --- !u!58 &8304595645492056912
 CircleCollider2D:

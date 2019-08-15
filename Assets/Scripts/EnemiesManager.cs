@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemiesManager : MonoBehaviour
 {    
     [SerializeField] private Wave[] waves;
+    private int enemyId = 0;
     private int waveIndex = 0;
     private Text timeToNextWave;
     private Text remainedWaves;
@@ -73,6 +74,9 @@ public class EnemiesManager : MonoBehaviour
             {
                 GameObject tmp = Instantiate(wave.Enemies[j].EnemyPrefab);
                 tmp.transform.SetParent(enemiesParent);
+                
+                tmp.GetComponent<Enemy>().SetEnemyId(enemyId);
+                enemyId++;
             
                 yield return new WaitForSeconds(timeBetweenEnemy);
             }

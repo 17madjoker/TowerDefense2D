@@ -6,6 +6,8 @@ using UnityEngine;
 [Serializable]
 public class RocketDebuff : Debuff
 {
+    // deal health damage per second on some duration, ignore shield 
+    
     [SerializeField] private float damagePerSecond;
     private float timer = 0;
 
@@ -25,7 +27,6 @@ public class RocketDebuff : Debuff
             timer = 0;
             
             target.DamageHealth(damagePerSecond);
-            Debug.Log("2222");
         }
         
         target.GetComponent<SpriteRenderer>().color = new Color32(	239, 83, 80, 255);
@@ -39,6 +40,4 @@ public class RocketDebuff : Debuff
         
         base.RemoveDebuff();
     }
-
-
 }
