@@ -11,9 +11,9 @@ public abstract class Debuff
     private float durationTimer = 0f;
     protected Enemy target;
 
-    public int ProcChance { get { return procChance; } }
-    
-    public float Duration { get { return duration; } }
+    public int ProcChance { get { return procChance; } set { procChance = value; } }
+
+    public float Duration { get { return duration; } set { duration = value; } }
 
     public GameManager.typeOfDamage Type { get { return type; } }
 

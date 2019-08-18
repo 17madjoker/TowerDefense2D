@@ -25,6 +25,7 @@
           <e p="EnemiesManager.cs" t="Include" />
           <e p="Enemy.cs" t="Include" />
           <e p="EnemyStats.cs" t="Include" />
+          <e p="FloatingDamage.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="MapManager.cs" t="Include" />
           <e p="Node.cs" t="Include" />
@@ -34,11 +35,15 @@
           <e p="TowerManager.cs" t="Include" />
           <e p="Towers" t="Include">
             <e p="BulletTower.cs" t="Include" />
+            <e p="BulletTowerUpgrade.cs" t="Include" />
             <e p="CanonTower.cs" t="Include" />
+            <e p="CanonTowerUpgrade.cs" t="Include" />
             <e p="RocketTower.cs" t="Include" />
+            <e p="RocketTowerUpgrade.cs" t="Include" />
             <e p="Tower.cs" t="Include" />
             <e p="TowerButton.cs" t="Include" />
             <e p="TowerStats.cs" t="Include" />
+            <e p="TowerUpgrade.cs" t="Include" />
           </e>
           <e p="Wave.cs" t="Include" />
         </e>

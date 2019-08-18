@@ -96,11 +96,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     tower: {fileID: 3585753668148691788}
+    level: 1
     price: 44
     range: 4.5
     damage: 2
-    attackSpeed: 0.1
-    rotationSpeed: 10
+    attackSpeed: 0.25
+    rotationSpeed: 25
     damageType: 0
   spriteRange: {fileID: 142961956667420288}
   projectilePref: {fileID: 8943674265541299192, guid: 1530a671aefa1244a8bc2aca9941c8a0,
@@ -109,6 +110,21 @@ MonoBehaviour:
     duration: 5
     procChance: 30
     multiplierShieldRecovery: 2
+  upgrades:
+  - level: 2
+    upgradePrice: 20
+    damageIncrease: 1
+    rangeIncrease: 0.2
+    debuffDurationIncrease: 0.3
+    procChanceIncrease: 2
+    multiplierIncrease: 0.3
+  - level: 3
+    upgradePrice: 25
+    damageIncrease: 1
+    rangeIncrease: 0.3
+    debuffDurationIncrease: 0.4
+    procChanceIncrease: 3
+    multiplierIncrease: 0.4
 --- !u!58 &7740194437986494810
 CircleCollider2D:
   m_ObjectHideFlags: 0

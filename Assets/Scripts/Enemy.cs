@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(4)]
 public class Enemy : MonoBehaviour
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private bool isStop = false;
     private bool isStun = false;
     private float timeToStart = 0;
+    public float currentProjectileSpeed;
 
     public bool IsStop { get { return isStop; } set { isStop = value; } }
 
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
     public bool IsDead { get { return isDead; } }
 
     [SerializeField] private EnemyStats enemyStats;
+    [SerializeField] private GameObject floatingDamagePref;
 
     private void Awake()
     {
@@ -54,7 +57,6 @@ public class Enemy : MonoBehaviour
                 Move();
             
             HandleDebuffs();
-            Debug.Log(debuffs.Count);
         }
     }
 
@@ -166,7 +168,7 @@ public class Enemy : MonoBehaviour
             else if (damage > enemyStats.CurrentShield)
             {
                 float restDamage = damage - enemyStats.CurrentShield;
-                enemyStats.CurrentShield = 0;
+                enemyStats.CurrentShield -= enemyStats.CurrentShield;
                 enemyStats.CurrentHealth -= restDamage;
             }
         }
@@ -213,6 +215,16 @@ public class Enemy : MonoBehaviour
     {
         animator.SetTrigger(trigger);
         isDead = true;
+    }
+
+    public void FloatingDamage(float damage, Transform enemyTransform, string damageType, float hideSpeed = 1.5f)
+    {       
+        FloatingDamage floatingDamage = Instantiate(floatingDamagePref).transform.GetChild(0).GetComponent<FloatingDamage>();
+
+        floatingDamage.DamageType = damageType;
+        floatingDamage.Damage = damage;
+        floatingDamage.EnemyTransform = enemyTransform;
+        floatingDamage.HideSpeed = hideSpeed;
     }
 
     public void AddDebuff(Debuff newDebuff)

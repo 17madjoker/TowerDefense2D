@@ -54,7 +54,7 @@ public abstract class Tower : MonoBehaviour
         {
             float angel = LookOnTarget(gameObject, enemyTarget);
         
-            if (canAttack && angel <= 5f)
+            if (canAttack && angel <= 2f)
             {
                 Shoot();
                 canAttack = false;
@@ -108,5 +108,13 @@ public abstract class Tower : MonoBehaviour
 
     public abstract int GetChance();
 
-    public abstract string GetTowerInfo();
+    public abstract string GetTowerInfo(bool isUpgradeInfo = false);
+
+    public abstract void Upgrade();
+    
+    public abstract TowerUpgrade GetUpgrade { get; }
+    
+    protected abstract int UpgradeIndex { get; set; }
+    
+    public abstract bool IsMaxLevel { get; protected set; }
 }

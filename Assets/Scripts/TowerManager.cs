@@ -8,8 +8,10 @@ public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject towerRange;
     [SerializeField] private GameObject sellTowerButton;
+    [SerializeField] private GameObject upgradeTowerButton;
     [SerializeField] private GameObject towerInfo;
     [SerializeField] private Text towerInfoText;
+    private GameManager gameManager;
     private GameObject followTower;
     private TowerButton selectedTower;
     private Tower tempTower;
@@ -24,6 +26,7 @@ public class TowerManager : MonoBehaviour
     
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         messageField = GameObject.Find("MessageField").GetComponent<Text>();
     }
 
@@ -85,7 +88,7 @@ public class TowerManager : MonoBehaviour
 
     private bool isEnoughMoney(TowerButton selectedTower)
     {
-        int currentMoney = GameObject.Find("GameManager").GetComponent<GameManager>().Money;
+        int currentMoney = gameManager.Money;
 
         if (currentMoney >= selectedTower.TowerPrice)
             return true;
@@ -95,8 +98,6 @@ public class TowerManager : MonoBehaviour
 
     public bool BuyTower(TowerButton purchasedTower)
     {
-        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
         if (gameManager.Money >= purchasedTower.TowerPrice)
         {
             gameManager.Money -= purchasedTower.TowerPrice;
@@ -110,8 +111,6 @@ public class TowerManager : MonoBehaviour
     {
         if (tempTower != null)
         {
-            GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
             tempTower.Tile.IsEmptyTile = true;
             gameManager.Money += tempTower.GetTowerPrice() / 2;
             
@@ -127,14 +126,24 @@ public class TowerManager : MonoBehaviour
             TowerInfo(selectedTower);
             tempTower.Select();
         }
-
             
         tempTower = selectedTower;
         tempTower.Select();
-        
+
         sellTowerButton.SetActive(true);
-        TowerInfo(selectedTower);
         sellTowerButton.transform.GetChild(0).GetComponent<Text>().text = "Sell if for " + "<color=white>" + selectedTower.GetTowerPrice() / 2 + " $</color>";
+
+        upgradeTowerButton.SetActive(true);
+
+        if (selectedTower.GetUpgrade != null && !selectedTower.IsMaxLevel)
+            upgradeTowerButton.transform.GetChild(0).GetComponent<Text>().text =
+                "Upgrade if for <color=#aed581>" + selectedTower.GetUpgrade.UpgradePrice +
+                "$</color>\nHover to see changes";
+        
+        else
+            upgradeTowerButton.transform.GetChild(0).GetComponent<Text>().text = "Max level";
+      
+        TowerInfo(selectedTower);
     }
 
     public void HideTowerInfo()
@@ -144,9 +153,9 @@ public class TowerManager : MonoBehaviour
             towerInfo.active = !towerInfo.active;
             tempTower.Select();
         }
-
         
         sellTowerButton.SetActive(false);
+        upgradeTowerButton.SetActive(false);
         tempTower = null;
     }
 
@@ -154,9 +163,39 @@ public class TowerManager : MonoBehaviour
     {
         towerInfo.active = !towerInfo.active;
 
-        string info = tower.GetTowerInfo();
+        towerInfoText.text = tower.GetTowerInfo();
+    }
 
-        towerInfoText.text = info;
+    private bool isCanTowerUpgrade(Tower tower)
+    {
+        if (tower.GetUpgrade != null && gameManager.Money >= tower.GetUpgrade.UpgradePrice)
+            return true;
+
+        return false;
+    }
+
+    public void TowerUpgradeInfo(bool isUpgradeInfo)
+    {
+        if (isUpgradeInfo && !tempTower.IsMaxLevel)
+            towerInfoText.text = tempTower.GetTowerInfo(true);
+
+        else
+            towerInfoText.text = tempTower.GetTowerInfo();
+    }
+
+    public void TowerUpgrade()
+    {
+        if (isCanTowerUpgrade(tempTower) && !tempTower.IsMaxLevel)
+        {
+            tempTower.Upgrade();
+            HideTowerInfo();
+        }
+        
+        else if (tempTower.IsMaxLevel)
+            towerInfoText.text = "Max level";
+        
+        else
+            towerInfoText.text = "Not enough money";
     }
 }
 

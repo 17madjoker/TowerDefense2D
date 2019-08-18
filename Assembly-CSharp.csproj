@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\EnemiesManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyStats.cs" />
+    <Compile Include="Assets\Scripts\FloatingDamage.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
@@ -77,28 +78,26 @@
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\TowerManager.cs" />
     <Compile Include="Assets\Scripts\Towers\BulletTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\BulletTowerUpgrade.cs" />
     <Compile Include="Assets\Scripts\Towers\CanonTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\CanonTowerUpgrade.cs" />
     <Compile Include="Assets\Scripts\Towers\RocketTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\RocketTowerUpgrade.cs" />
     <Compile Include="Assets\Scripts\Towers\Tower.cs" />
     <Compile Include="Assets\Scripts\Towers\TowerButton.cs" />
     <Compile Include="Assets\Scripts\Towers\TowerStats.cs" />
+    <Compile Include="Assets\Scripts\Towers\TowerUpgrade.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <None Include="Assets\Resources\Level_1 — копия.txt" />
     <None Include="Assets\Resources\Level_1.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>F:/UnityProjects/TowerDefense2D/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>

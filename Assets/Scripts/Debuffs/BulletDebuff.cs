@@ -11,8 +11,8 @@ public class BulletDebuff : Debuff
     [SerializeField] private float multiplierShieldRecovery;
     private float defaultRecoveryTime;
 
-    public float MultiplierShieldRecoveryDelay { get { return multiplierShieldRecovery; } }
-    
+    public float MultiplierShieldRecoveryDelay { get { return multiplierShieldRecovery; } set { multiplierShieldRecovery = value; } }
+
     public BulletDebuff(float multiplier, float duration, int procChance, Enemy target, GameManager.typeOfDamage debuffType) : base(duration, procChance, target, debuffType)
     {
         multiplierShieldRecovery = multiplier;

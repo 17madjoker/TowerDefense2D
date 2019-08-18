@@ -11,7 +11,7 @@ public class RocketDebuff : Debuff
     [SerializeField] private float damagePerSecond;
     private float timer = 0;
 
-    public float DamagePerSecond { get { return damagePerSecond; } }
+    public float DamagePerSecond { get { return damagePerSecond; } set { damagePerSecond = value; } }
 
     public RocketDebuff(float duration, int procChance, float damagePerSecond, Enemy target, GameManager.typeOfDamage debuffType) : base(duration, procChance, target, debuffType)
     {

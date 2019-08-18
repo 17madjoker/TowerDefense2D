@@ -601,10 +601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70118dc125e7ac245af6d915cd553337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentProjectileSpeed: 0
   enemyStats:
+    enemy: {fileID: 3890025264838229271}
     healthBar: {fileID: 484524034}
     shieldBar: {fileID: 143905597}
-    maxHealth: 80
+    maxHealth: 85
     maxShield: 10
     timeToShieldRecovery: 2.5
     shieldRecoverySpeed: 0.5
@@ -612,6 +614,8 @@ MonoBehaviour:
     maxSpeed: 1.2
     rotationSpeed: 10
     damageResistance: 0
+  floatingDamagePref: {fileID: 5821763431303564946, guid: dea8e618b6fbfa3478e36b3f129591e5,
+    type: 3}
 --- !u!95 &-5966932262908796117
 Animator:
   serializedVersion: 3

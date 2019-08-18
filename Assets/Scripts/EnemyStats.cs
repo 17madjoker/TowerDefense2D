@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class EnemyStats
 {
+    [SerializeField] private Enemy enemy;
     [SerializeField] private Bar healthBar;
     [SerializeField] private Bar shieldBar;
     
@@ -61,6 +62,9 @@ public class EnemyStats
     {
         set
         {
+            if (currentHealth > value)
+                enemy.FloatingDamage(currentHealth - value, enemy.transform, "health");
+            
             currentHealth = value;
             healthBar.CurrentValue = currentHealth;
         }
@@ -71,6 +75,9 @@ public class EnemyStats
     {
         set
         {
+            if (currentShield > value)
+                enemy.FloatingDamage(currentShield - value, enemy.transform, "shield");
+            
             currentShield = value;
             shieldBar.CurrentValue = currentShield;
         }

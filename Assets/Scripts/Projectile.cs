@@ -67,6 +67,7 @@ public class Projectile : MonoBehaviour
                 float damage = projectileStats.Damage;
                 
                 enemy.TakeDamage(damage, projectileStats.DamageType);
+                enemy.currentProjectileSpeed = projectileStats.Speed;
                 AddDebuff(enemy);
                 
                 animator.SetTrigger("penetration");
