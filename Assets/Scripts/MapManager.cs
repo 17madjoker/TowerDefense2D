@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(1)]
 public class MapManager : MonoBehaviour
@@ -43,7 +42,7 @@ public class MapManager : MonoBehaviour
     
     private void ParseLevelMap()
     {
-        TextAsset mapData = (TextAsset) Resources.Load("Level_1");
+        TextAsset mapData = (TextAsset) Resources.Load(SceneManager.GetActiveScene().name);
 
         string tmp = mapData.text.Replace(Environment.NewLine, String.Empty);
         

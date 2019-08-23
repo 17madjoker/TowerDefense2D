@@ -123,7 +123,7 @@ MonoBehaviour:
   projectileStats:
     tower: {fileID: 3585753668148691788, guid: 0998b0c68397edf45a2fbbe24922d748, type: 3}
     damageType: 0
-    speed: 12
+    speed: 11
 --- !u!95 &7605863302396500572
 Animator:
   serializedVersion: 3

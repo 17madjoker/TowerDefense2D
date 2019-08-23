@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private GameObject target;
     private Animator animator;
+    private Tower tower;
     [SerializeField] private ProjectileStats projectileStats;
 
     private void Start()
@@ -21,7 +22,7 @@ public class Projectile : MonoBehaviour
 
     private void Move()
     {
-        if (target.GetComponent<Enemy>().IsDead || target == null)
+        if (target == null || target.GetComponent<Enemy>().IsDead)
         {
             Destroy(gameObject);
             target = null;
@@ -43,6 +44,7 @@ public class Projectile : MonoBehaviour
     public void SetProjectile(Tower parentTower)
     {
         target = parentTower.EnemyTarget;
+        tower = parentTower;
         
         transform.position = parentTower.transform.position;
         transform.SetParent(parentTower.transform);

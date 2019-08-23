@@ -98,10 +98,10 @@ MonoBehaviour:
     tower: {fileID: -4389054497950510721}
     level: 1
     price: 66
-    range: 4.5
+    range: 4.7
     damage: 17
     attackSpeed: 1.5
-    rotationSpeed: 25
+    rotationSpeed: 6
     damageType: 2
   spriteRange: {fileID: 8342893761558904796}
   projectilePref: {fileID: 8848042196274915627, guid: a22fb9e71b0c79043a54e7ae2aac6113,

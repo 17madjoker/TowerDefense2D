@@ -150,7 +150,7 @@ MonoBehaviour:
     shieldBar: {fileID: 499862023581297539}
     maxHealth: 65
     maxShield: 5
-    timeToShieldRecovery: 1.5
+    timeToShieldRecovery: 0.3
     shieldRecoverySpeed: 0.7
     speed: 1
     maxSpeed: 1

@@ -9,6 +9,7 @@
         <e p="Resources" t="Include">
           <e p="Level_1 — копия.txt" t="Include" />
           <e p="Level_1.txt" t="Include" />
+          <e p="Level_2.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="AnimationsController" t="Include">
@@ -27,10 +28,14 @@
           <e p="EnemyStats.cs" t="Include" />
           <e p="FloatingDamage.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="LevelData.cs" t="Include" />
+          <e p="LevelManager.cs" t="Include" />
+          <e p="MainMenuManager.cs" t="Include" />
           <e p="MapManager.cs" t="Include" />
           <e p="Node.cs" t="Include" />
           <e p="Projectile.cs" t="Include" />
           <e p="ProjectileStats.cs" t="Include" />
+          <e p="SaveLoadManager.cs" t="Include" />
           <e p="Tile.cs" t="Include" />
           <e p="TowerManager.cs" t="Include" />
           <e p="Towers" t="Include">

@@ -46,12 +46,14 @@ public class GameManager : MonoBehaviour
     private Text baseHealthText;
     private Text moneyText;
     private float timerIncome;
+    private TowerManager towerManager;
 
     private bool isGameOver = false;
     private bool isPaused = false;
 
     private void Start()
     {
+        towerManager = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         baseHealthText = GameObject.Find("BaseHealth").GetComponent<Text>();
         moneyText = GameObject.Find("Money").GetComponent<Text>();
         
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             HideShowUI();
+            towerManager.HideTowerInfo();
 
             Time.timeScale = 0;
             gameMenu.SetActive(true);
@@ -128,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     private void HideShowUI()
     {
-        for (int i = 0; i < canvas.transform.GetChildCount(); i++)
+        for (int i = 0; i < canvas.transform.childCount; i++)
         {
             GameObject UIobj = canvas.transform.GetChild(i).gameObject;
             

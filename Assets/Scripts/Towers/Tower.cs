@@ -12,7 +12,8 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] private GameObject projectilePref;
     
     private GameObject enemyTarget;
-    private Queue<GameObject> enemiesIntoRange = new Queue<GameObject>();
+//    private Queue<GameObject> enemiesIntoRange = new Queue<GameObject>();
+    private List<GameObject> enemiesIntoRange = new List<GameObject>();
     private bool canAttack = true;
     private float timeToAttack = 0;
 
@@ -33,7 +34,7 @@ public abstract class Tower : MonoBehaviour
     {
         if (target.CompareTag("Enemy"))
         {
-            enemiesIntoRange.Enqueue(target.gameObject);
+            enemiesIntoRange.Add(target.gameObject);
         }
     }
 
@@ -41,20 +42,21 @@ public abstract class Tower : MonoBehaviour
     {
         if (target.CompareTag("Enemy"))
         {
+            enemiesIntoRange.Remove(target.gameObject);
             enemyTarget = null;
         }
     }
 
     private void Attack()
     {
-        if (enemyTarget == null && enemiesIntoRange.Count > 0)
-            enemyTarget = enemiesIntoRange.Dequeue();
+        if (enemyTarget == null && enemiesIntoRange.Count > 0 && FindObjectOfType<Projectile>() == null)
+            enemyTarget = enemiesIntoRange[0];
         
         if (enemyTarget != null)
         {
             float angel = LookOnTarget(gameObject, enemyTarget);
         
-            if (canAttack && angel <= 2f)
+            if (canAttack && angel <= 10f)
             {
                 Shoot();
                 canAttack = false;
