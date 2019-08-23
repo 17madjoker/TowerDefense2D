@@ -197,5 +197,18 @@ public class TowerManager : MonoBehaviour
         else
             towerInfoText.text = "Not enough money";
     }
+
+    public static bool IsTowerOfMaxLevel()
+    {
+        GameObject towers = GameObject.Find("Towers");
+
+        for (int i = 0; i < towers.transform.childCount; i++)
+        {
+            if (towers.transform.GetChild(i).GetComponent<Tower>().IsMaxLevel)
+                return true;
+        }
+
+        return false;
+    }
 }
 

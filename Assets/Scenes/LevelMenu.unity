@@ -1050,10 +1050,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "To receive stars <color=#FFA726>\u2605</color> make conditions:\n<color=#FFA726>\x05\x05\u2605</color>
-    Win the game with 100 and more money;\n<color=#FFA726>\u2605\x05</color> Win the
-    game with at least 1 tower of maximum level;\n<color=#FFA726>\u2605\x05</color>
-    Win the game with maximum base health."
+  m_Text: "To receive stars <color=#FFA726>\u2605</color> make conditions:\n<color=#FFA726>First
+    \x05\x05\u2605</color> Win the game with 100 and more money;\n<color=#FFA726>Second
+    \u2605\x05</color> Win the game with at least 1 tower of maximum level;\n<color=#FFA726>Third
+    \u2605\x05</color> Win the game with maximum base health."
 --- !u!222 &1670026503
 CanvasRenderer:
   m_ObjectHideFlags: 0

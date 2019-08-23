@@ -2,20 +2,36 @@
 using System.Collections.Generic;
 
 [Serializable]
-public struct LevelData
+public class LevelData
 {
     private int level;
     private bool isComplete;
     private Dictionary<starCondition, bool> levelStars;
     
-    private enum starCondition
+    public enum starCondition
     {
         WinHundredMoreMoney,
         WinAtLeastOneMaxTower,
         WinWithMaxBaseHealth
     }
 
-    public int Level { get { return level; } }
+    public int Level
+    {
+        set { level = value; }
+        get { return level; }
+    }
+
+    public bool IsComplete
+    {
+        set { isComplete = value; }
+        get { return isComplete; }
+    }
+    
+    public Dictionary<starCondition, bool> LevelStars
+    {
+        get { return levelStars; }
+        set { levelStars = value; }
+    }
 
     public LevelData(int level)
     {

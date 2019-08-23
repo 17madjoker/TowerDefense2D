@@ -13,6 +13,7 @@ public class EnemiesManager : MonoBehaviour
     private GameObject towersPanel;
 
     private Transform enemiesParent;
+    private GameManager gameManager;
     
     private void Start()
     {
@@ -20,6 +21,7 @@ public class EnemiesManager : MonoBehaviour
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
         remainedWaves = GameObject.Find("RemainedWaves").GetComponent<Text>();
         towersPanel = GameObject.Find("TowersPanel");
+        gameManager = FindObjectOfType<GameManager>();
         
         CheckRemainedWaves(waves);
     }
@@ -41,7 +43,9 @@ public class EnemiesManager : MonoBehaviour
                     {
                         timeToNextWave.text = "Time to next wave: \n" + "<color=#FFA726>" + Mathf.Round(waves[waveIndex].TimeToStartWave) + "</color>";
                         waves[waveIndex].TimeToStartWave -= Time.deltaTime;
-                        towersPanel.SetActive(true);
+                        
+                        if (!gameManager.IsPaused)
+                            towersPanel.SetActive(true);
                     }
                     
                     else
@@ -51,7 +55,9 @@ public class EnemiesManager : MonoBehaviour
                 if (waves[waveIndex].TimeToStartWave <= 0f && enemiesParent.childCount == 0)
                 {
                     StartCoroutine(SpawnEnemy(waves[waveIndex], waves[waveIndex].TimeBetweenEnemy));
-                    towersPanel.SetActive(false);
+                    
+                    if (!gameManager.IsPaused)
+                        towersPanel.SetActive(false);
                     
                     waves[waveIndex].IsWaveEnded = true;
                     CheckRemainedWaves(waves);
@@ -63,6 +69,9 @@ public class EnemiesManager : MonoBehaviour
                         waveIndex++;
                 }
             }
+            
+            else if (enemiesParent.childCount == 0 && waves[waveIndex].IsWaveEnded && waveIndex == waves.Length - 1)
+                gameManager.LevelComplete();
         }
     }
 
@@ -86,7 +95,7 @@ public class EnemiesManager : MonoBehaviour
     private void CheckRemainedWaves(Wave[] waves)
     {
         int wavesRemained = waves.Length;
-//        }
+
         for (int i = 0; i < waves.Length; i++)
         {
             if (waves[i].IsWaveEnded)

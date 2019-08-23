@@ -18,15 +18,15 @@ public static class SaveLoadManager
         
         Dictionary<string, LevelData> loadLevelsData = LoadLevelsData();
 
-//        LevelData currentLevel;
-//        loadLevelsData.TryGetValue(levelName, out currentLevel);
+        LevelData currentLevel;
+        loadLevelsData.TryGetValue(levelName, out currentLevel);
             
         BinaryFormatter bFormatter = new BinaryFormatter();
         FileStream fStream = new FileStream(pathToFile, FileMode.Create);
 
-//        if (currentLevel == null)
-//            loadLevelsData.Add(levelName, newLevelData);
-//        else
+        if (currentLevel == null)
+            loadLevelsData.Add(levelName, newLevelData);
+        else
             loadLevelsData[levelName] = newLevelData;
                 
         bFormatter.Serialize(fStream, loadLevelsData);

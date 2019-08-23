@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,8 +15,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int incomePerSecond;
     [SerializeField] private float timeToIncome;
     [SerializeField] private GameObject gameMenu;
+    [SerializeField] private Text gameMenuText;
     [SerializeField] private GameObject canvas;
+    [SerializeField] private Text gameSpeedText;
     
+    private Text baseHealthText;
+    private Text moneyText;
+    private float timerIncome;
+    private TowerManager towerManager;
+
+    private bool isGameOver = false;
+    private bool isPaused = false;
+    private bool isComplete = false;
+    private List<GameObject> activeCanvasElements = new List<GameObject>();
+    private int MaxBaseHealth;
+
+    public bool IsPaused { get { return isPaused; } }
+
     public enum typeOfDamage { Bullet, Canon, Rocket }
 
     public int Money
@@ -35,30 +52,23 @@ public class GameManager : MonoBehaviour
             baseHealth = value;
 
             if (baseHealth == 0)
-            {
                 GameOver();
-            }
             
             baseHealthText.text = "Base health:\n <color=#ef5350>" + baseHealth + "</color>";
         }
     }
 
-    private Text baseHealthText;
-    private Text moneyText;
-    private float timerIncome;
-    private TowerManager towerManager;
-
-    private bool isGameOver = false;
-    private bool isPaused = false;
-
     private void Start()
     {
+        CreateActiveCanvasElements();
+        
         towerManager = GameObject.Find("TowerManager").GetComponent<TowerManager>();
         baseHealthText = GameObject.Find("BaseHealth").GetComponent<Text>();
         moneyText = GameObject.Find("Money").GetComponent<Text>();
         
         Money = money;
         BaseHealth = baseHealth;
+        MaxBaseHealth = BaseHealth;
     }
 
     private void Update()
@@ -79,6 +89,28 @@ public class GameManager : MonoBehaviour
         timerIncome -= Time.deltaTime;
     }
 
+    public void SetGameSpeed()
+    {
+        if (Time.timeScale == 1)
+        {
+            gameSpeedText.text = "Game Speed x2";
+            Time.timeScale = 2;
+        }
+        
+        else if (Time.timeScale == 2)
+        {
+            gameSpeedText.text = "Game Speed x3";
+            Time.timeScale = 3;
+        }
+        
+        else if (Time.timeScale == 3)
+        {
+            gameSpeedText.text = "Game Speed x1";
+            Time.timeScale = 1;
+        }
+
+    }
+
     private void GameOver()
     {
         if (!isGameOver)
@@ -88,8 +120,33 @@ public class GameManager : MonoBehaviour
 
             Time.timeScale = 0;
             gameMenu.SetActive(true);
+            
             GameObject.Find("Resume").SetActive(false);
+            gameMenuText.text = "Game Over";
         }
+    }
+
+    public void LevelComplete()
+    {
+        int levelNum = Convert.ToInt32(SceneManager.GetActiveScene().name.Split('_').Last());
+        
+        LevelData levelData = new LevelData(levelNum);
+
+        if (Money >= 100)
+            levelData.LevelStars[LevelData.starCondition.WinHundredMoreMoney] = true;
+        
+        if (TowerManager.IsTowerOfMaxLevel())
+            levelData.LevelStars[LevelData.starCondition.WinAtLeastOneMaxTower] = true;
+        
+        if (MaxBaseHealth == BaseHealth)
+            levelData.LevelStars[LevelData.starCondition.WinWithMaxBaseHealth] = true;
+
+        levelData.IsComplete = true;
+        isComplete = true;
+        
+        SaveLoadManager.SaveLevel(SceneManager.GetActiveScene().name, levelData);
+        
+        Pause();
     }
 
     public void Pause()
@@ -98,10 +155,16 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             HideShowUI();
-            towerManager.HideTowerInfo();
 
             Time.timeScale = 0;
             gameMenu.SetActive(true);
+
+            if (isComplete)
+            {
+                gameMenuText.text = "Level complete";
+                
+                GameObject.Find("Resume").SetActive(false);
+            }
         }
     }
 
@@ -129,20 +192,31 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    private void HideShowUI()
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void CreateActiveCanvasElements()
     {
         for (int i = 0; i < canvas.transform.childCount; i++)
         {
             GameObject UIobj = canvas.transform.GetChild(i).gameObject;
             
-            if (UIobj.name != gameMenu.name)
-            {
-                if (isPaused || isGameOver)
-                    UIobj.SetActive(false);
+            if (UIobj.activeInHierarchy)
+                activeCanvasElements.Add(UIobj);
+        }
+    }
+
+    private void HideShowUI()
+    {
+        for (int i = 0; i < activeCanvasElements.Count; i++)
+        {
+            if (isPaused || isGameOver)
+                activeCanvasElements[i].SetActive(false);
                     
-                else if (!isPaused)
-                    UIobj.SetActive(true);
-            }
+            else if (!isPaused)
+                activeCanvasElements[i].SetActive(true);
         }
     }
 }
