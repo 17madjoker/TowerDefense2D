@@ -11,6 +11,7 @@ public class EnemiesManager : MonoBehaviour
     private Text timeToNextWave;
     private Text remainedWaves;
     private GameObject towersPanel;
+    private GameObject spawnButton;
 
     private Transform enemiesParent;
     private GameManager gameManager;
@@ -21,6 +22,7 @@ public class EnemiesManager : MonoBehaviour
         timeToNextWave = GameObject.Find("TimeToNextWave").GetComponent<Text>();
         remainedWaves = GameObject.Find("RemainedWaves").GetComponent<Text>();
         towersPanel = GameObject.Find("TowersPanel");
+        spawnButton = GameObject.Find("SpawnButton");
         gameManager = FindObjectOfType<GameManager>();
         
         CheckRemainedWaves(waves);
@@ -42,14 +44,23 @@ public class EnemiesManager : MonoBehaviour
                     if (enemiesParent.childCount == 0)
                     {
                         timeToNextWave.text = "Time to next wave: \n" + "<color=#FFA726>" + Mathf.Round(waves[waveIndex].TimeToStartWave) + "</color>";
+                        
+                        spawnButton.GetComponent<Button>().interactable = true;
+                        spawnButton.transform.GetChild(0).GetComponent<Text>().text =
+                            "Spawn now and claim \n" + Mathf.Round(waves[waveIndex].TimeToStartWave) + " $";
+                        
                         waves[waveIndex].TimeToStartWave -= Time.deltaTime;
                         
                         if (!gameManager.IsPaused)
                             towersPanel.SetActive(true);
                     }
-                    
+
                     else
+                    {
                         timeToNextWave.text = "Defeat enemies";
+                        spawnButton.transform.GetChild(0).GetComponent<Text>().text = "Spawn now";
+                        spawnButton.GetComponent<Button>().interactable = false;
+                    }
                 }
 
                 if (waves[waveIndex].TimeToStartWave <= 0f && enemiesParent.childCount == 0)
@@ -108,7 +119,10 @@ public class EnemiesManager : MonoBehaviour
     public void NextWave()
     {
         if (waveIndex > 0 && waves[waveIndex - 1].IsWaveEnded && enemiesParent.childCount == 0 || waveIndex == 0)
+        {
+            gameManager.Money += (int) Mathf.Round(waves[waveIndex].TimeToStartWave);
             waves[waveIndex].TimeToStartWave = 0;
+        }
     }
 
     public int GetTimeToStartWave()

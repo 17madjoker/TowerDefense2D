@@ -518,6 +518,7 @@ MonoBehaviour:
     enemy: {fileID: 3890636392747422049}
     healthBar: {fileID: 4183982420647649584}
     shieldBar: {fileID: 354131507}
+    defeatPrice: 30
     maxHealth: 125
     maxShield: 15
     timeToShieldRecovery: 3.5

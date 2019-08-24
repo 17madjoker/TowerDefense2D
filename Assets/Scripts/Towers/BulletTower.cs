@@ -88,6 +88,8 @@ public class BulletTower : Tower
             bulletDebuff.Duration += upgrade.DebuffDurationIncrease;
             bulletDebuff.ProcChance += upgrade.ProcChanceIncrease;
             bulletDebuff.MultiplierShieldRecoveryDelay += upgrade.MultiplierIncrease;
+            
+            GameObject.Find("GameManager").GetComponent<GameManager>().Money -= upgrade.UpgradePrice;
 
             UpgradeIndex++;
         }

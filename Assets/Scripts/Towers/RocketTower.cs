@@ -89,6 +89,8 @@ public class RocketTower : Tower
             rocketDebuff.ProcChance += upgrade.ProcChanceIncrease;
             rocketDebuff.DamagePerSecond += upgrade.DamagePerSecondIncrease;
 
+            GameObject.Find("GameManager").GetComponent<GameManager>().Money -= upgrade.UpgradePrice;
+            
             UpgradeIndex++;
         }
         

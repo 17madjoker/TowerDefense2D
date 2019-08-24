@@ -11,6 +11,8 @@ public class EnemyStats
     private float currentHealth;
     private float currentShield;
     private int enemyId;
+
+    [SerializeField] private int defeatPrice;
     [SerializeField] private float maxHealth;
     [SerializeField] private float maxShield;
     [SerializeField] private float timeToShieldRecovery;
@@ -19,6 +21,8 @@ public class EnemyStats
     [SerializeField] private float maxSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private GameManager.typeOfDamage damageResistance;
+
+    public int DefeatPrice { get { return defeatPrice; } }
 
     public int EnemyId { get { return enemyId; } set { enemyId = value; } }
 

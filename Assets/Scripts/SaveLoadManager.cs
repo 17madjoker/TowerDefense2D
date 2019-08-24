@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveLoadManager
 {
-    public static string pathToFile = Application.persistentDataPath + "/levelsData.td";
+    public static string pathToFile =  Application.dataPath + "/Resources/levelsData.td";
     
     public static void SaveLevel(string levelName, LevelData newLevelData)
     {

@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(MoneyIncome(incomePerSecond));
+//        StartCoroutine(MoneyIncome(incomePerSecond));
     }
 
     private IEnumerator MoneyIncome(int incomePerSecond)
@@ -108,7 +108,6 @@ public class GameManager : MonoBehaviour
             gameSpeedText.text = "Game Speed x1";
             Time.timeScale = 1;
         }
-
     }
 
     private void GameOver()
@@ -194,6 +193,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        Time.timeScale = 1;
+        
         SceneManager.LoadScene(sceneName);
     }
 

@@ -83,6 +83,8 @@ public class CanonTower : Tower
             towerStats.Range += upgrade.RangeIncrease;
             canonDebuff.Duration += upgrade.DebuffDurationIncrease;
             canonDebuff.ProcChance += upgrade.ProcChanceIncrease;
+            
+            GameObject.Find("GameManager").GetComponent<GameManager>().Money -= upgrade.UpgradePrice;
 
             UpgradeIndex++;
         }

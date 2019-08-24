@@ -213,6 +213,8 @@ public class Enemy : MonoBehaviour
 
     private void EnemyDie(string trigger)
     {
+        GameObject.Find("GameManager").GetComponent<GameManager>().Money += enemyStats.DefeatPrice;
+        
         animator.SetTrigger(trigger);
         isDead = true;
     }
