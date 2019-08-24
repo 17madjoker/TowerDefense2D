@@ -31,7 +31,7 @@ public class TowerManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {       
         MouseFollowTower();
     }
 
@@ -209,6 +209,19 @@ public class TowerManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void DisableTowerInfo()
+    {
+        if (tempTower != null)
+        {
+            tempTower.Select();        
+            towerInfo.SetActive(false);
+            sellTowerButton.SetActive(false);
+            upgradeTowerButton.SetActive(false);
+        
+            tempTower = null;
+        }
     }
 }
 

@@ -89,9 +89,15 @@ public class GameManager : MonoBehaviour
         timerIncome -= Time.deltaTime;
     }
 
-    public void SetGameSpeed()
+    public void SetGameSpeed(int gameSpeed)
     {
-        if (Time.timeScale == 1)
+        if (gameSpeed == 1)
+        {
+            gameSpeedText.text = "Game Speed x1";
+            Time.timeScale = 1;
+        }
+        
+        else if (Time.timeScale == 1)
         {
             gameSpeedText.text = "Game Speed x2";
             Time.timeScale = 2;
@@ -152,6 +158,8 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
+            towerManager.DisableTowerInfo();
+            
             isPaused = true;
             HideShowUI();
 

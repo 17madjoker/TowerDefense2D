@@ -49,6 +49,9 @@ public class EnemiesManager : MonoBehaviour
                         spawnButton.transform.GetChild(0).GetComponent<Text>().text =
                             "Spawn now and claim \n" + Mathf.Round(waves[waveIndex].TimeToStartWave) + " $";
                         
+                        if (Time.timeScale != 1)
+                            gameManager.SetGameSpeed(1);
+                        
                         waves[waveIndex].TimeToStartWave -= Time.deltaTime;
                         
                         if (!gameManager.IsPaused)
