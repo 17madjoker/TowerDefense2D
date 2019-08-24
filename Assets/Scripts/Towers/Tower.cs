@@ -49,7 +49,7 @@ public abstract class Tower : MonoBehaviour
 
     private void Attack()
     {
-        if (enemyTarget == null && enemiesIntoRange.Count > 0 && FindObjectOfType<Projectile>() == null)
+        if (enemyTarget == null && enemiesIntoRange.Count > 0 && transform.GetComponentInChildren<Projectile>() == null)
             enemyTarget = enemiesIntoRange[0];
         
         if (enemyTarget != null)

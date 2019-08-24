@@ -35,6 +35,8 @@ public class FloatingDamage : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger(DamageType);
         GetComponent<Text>().text = Mathf.Round(damage).ToString();
+        
+        transform.parent.position = enemyTransform.position;
         offsetX = Random.Range(-0.3f, 0.3f);
         
         Destroy(transform.parent.gameObject, HideSpeed);
@@ -47,6 +49,9 @@ public class FloatingDamage : MonoBehaviour
             transform.parent.position = enemyTransform.position;
             transform.parent.position += Vector3.Lerp(transform.parent.position,new Vector3(offsetX, 0, 0), HideSpeed);
         }
+        
+//        if (transform.parent == null || enemyTransform == null || enemyTransform.GetComponent<Enemy>().IsDead)
+//            Destroy(transform.parent.gameObject);
     }
 
 }

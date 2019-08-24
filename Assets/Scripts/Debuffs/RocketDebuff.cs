@@ -26,7 +26,8 @@ public class RocketDebuff : Debuff
         {
             timer = 0;
             
-            target.DamageHealth(damagePerSecond);
+            if (!target.IsDead)
+                target.DamageHealth(damagePerSecond);
         }
         
         target.GetComponent<SpriteRenderer>().color = new Color32(	239, 83, 80, 255);
